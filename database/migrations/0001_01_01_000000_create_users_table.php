@@ -20,9 +20,12 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->unsignedBigInteger('parent_id')->nullable();
             $table->foreign('parent_id')->references('id')->on('users')->onDelete('cascade');
+            $table->enum('kyc_status', ['pending', 'approved', 'rejected'])->default('pending'); 
             $table->rememberToken();
             $table->timestamps();
         });
+
+        
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
             $table->string('email')->primary();
