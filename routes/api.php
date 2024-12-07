@@ -12,4 +12,4 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware('auth', 'admin')->group(function () {
     Route::post('/verify-account/{linked_account_id}', [KYCController::class, 'update']); // Route for approving accounts for the admin
-}
+});

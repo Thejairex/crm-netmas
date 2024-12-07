@@ -14,24 +14,47 @@ class KYCController extends Controller
 {
     public function index(): View
     {
-        return view('kyc');
+        $user = Auth::user();
+        $linkedAccounts = $user->linkedAccounts()->with('linkedUser')->get();
+
+        return view('kyc.manage', [
+            'user' => $user,
+            'linkedAccounts' => $linkedAccounts,
+        ]);
     }
 
     public function store(Request $request): JsonResponse
     {
         $request->validate([
-            'linked_user_id' => 'required|exists:users,id',
+            'linked_user_email' => 'required|email|exists:users,email',
         ]);
+
         $user = Auth::user(); // Get the authenticated user
+        $linkedUser = User::where('email', $request->linked_user_email)->first(); // Get the linked user
 
-        // Check if the user has reached the maximum number of linked accounts
-        if ($user->linkedAccount()->count() >= 5) {
+
+        // Verification of the linked user
+        if (!$linkedUser) {
+            return response()->json(['error' => 'Linked user not found.'], 404);
+        }
+
+        if ($user->linkedAccounts()->where('linked_account_id', $linkedUser->id)->exists()) {
+            return response()->json(['error' => 'You have already linked this user.'], 400);
+        }
+
+        if ($user->id === $linkedUser->id) {
+            return response()->json(['error' => 'You cannot link yourself.'], 400);
+        }
+
+        if ($user->linkedAccounts()->count() >= 5) {
             return response()->json(['error' => 'You have reached the maximum number of linked accounts.'], 400);
-        };
+        }
 
-        LinkedAccounts::create([
+
+        // Create the relationship between the users
+        LinkedAccount::create([
             'user_id' => $user->id,
-            'linked_account_id' => $request->linked_user_id,
+            'linked_account_id' => $linkedUser->id,
             'status' => 'pending',
         ]);
 

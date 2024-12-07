@@ -20,6 +20,10 @@
                         </div>
                     @endif
                 </div>
+                <a href="/profile/kyc">Vincular cuenta</a>
+                @if (Auth::user()->isAdmin())
+                    <a href="/kyc/administration">Gestión de cuentas</a>
+                @endif
             </div>
         </div>
     </div>

@@ -14,8 +14,8 @@ class LinkedAccount extends Model
         'status',
     ];
 
-    function user()
+    function linkedUser()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'linked_account_id');
     }
 }

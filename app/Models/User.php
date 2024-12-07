@@ -33,8 +33,9 @@ class User extends Authenticatable
     ];
     
 
-    public function linkedAccounts(): HasMany {
-        return $this->hasMany(LinkedAccount::class);
+    public function linkedAccounts(): HasMany
+    {
+        return $this->hasMany(LinkedAccount::class, 'user_id');
     }
 
 
