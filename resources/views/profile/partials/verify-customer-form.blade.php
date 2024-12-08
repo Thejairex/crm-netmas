@@ -17,6 +17,6 @@
         <p class="text-red-600">Tu verificación fue rechazada. Por favor, intenta nuevamente.</p>
     @else
         <p class="text-gray-600">Aún no has enviado tu verificación de identidad.</p>
-        <a href="{{ route('kyc.form') }}" class="text-blue-600">Iniciar Verificación</a>
+        <a href="/profile/verification" class="text-blue-600">Iniciar Verificación</a>
     @endif
 </section>

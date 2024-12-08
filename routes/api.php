@@ -5,11 +5,16 @@ use Illuminate\Support\Facades\Route;
 
 
 
+// User API routes
 Route::middleware('auth')->group(function () {
    Route::post('/link-account', [KYCController::class, 'store']); // Route for linking accounts for the user
-   Route::get('/kyc', [KYCController::class, 'show']);
+
+   Route::post('/kyc/store', [KYCController::class, 'store']); // Route for storing KYC entries for the user
+    // Route for updating KYC entries for the user
 });
 
+// Admin API routes
 Route::middleware('auth', 'admin')->group(function () {
-    Route::post('/verify-account/{linked_account_id}', [KYCController::class, 'update']); // Route for approving accounts for the admin
+   Route::patch('/kyc/update/{id}', [KYCController::class, 'update'])->name('kyc.update'); // Route for updating KYC entries for the admin
+   Route::delete('/kyc/destroy/{id}', [KYCController::class, 'destroy'])->name('kyc.destroy'); // Route for deleting KYC entries for the admin
 });

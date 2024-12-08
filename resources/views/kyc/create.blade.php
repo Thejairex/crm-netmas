@@ -7,7 +7,7 @@
 </head>
 <body>
     <h1>Verificación de Identidad</h1>
-    <form action="{{ route('kyc.submit') }}" method="POST" enctype="multipart/form-data">
+    <form action="/kyc/store" method="POST" enctype="multipart/form-data">
         @csrf
         <label for="document_type">Tipo de Documento:</label>
         <select name="document_type" id="document_type" required>
@@ -16,14 +16,13 @@
             <option value="driver_license">Licencia de Conducir</option>
         </select>
 
-        <label for="document_front">Documento (Frontal):</label>
-        <input type="file" name="document_front" id="document_front" required>
+        <label for="document_number">Número de Documento:</label>
+        <input type="text" name="document_number" id="document_number" required>
+        <label for="document_image">Documento (Frontal):</label>
+        <input type="file" name="document_image" id="document_image" required>
 
-        <label for="document_back">Documento (Reverso):</label>
-        <input type="file" name="document_back" id="document_back">
-
-        <label for="selfie_with_document">Selfie con Documento:</label>
-        <input type="file" name="selfie_with_document" id="selfie_with_document" required>
+        <label for="selfie_with_document">Selfie:</label>
+        <input type="file" name="selfie_with_document" id="selfie_with_document">
 
         <button type="submit">Enviar Verificación</button>
     </form>

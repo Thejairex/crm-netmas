@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\LinkedAccount;
-use App\Models\LinkedAccounts;
-use App\Models\User;
+use App\Models\KYC;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -12,84 +10,75 @@ use Illuminate\View\View;
 
 class KYCController extends Controller
 {
+
+    /**
+     * Display all KYC entries for the admins.
+     */
     public function index(): View
     {
-        $user = Auth::user();
-        $linkedAccounts = $user->linkedAccounts()->with('linkedUser')->get();
-
-        return view('kyc.manage', [
-            'user' => $user,
-            'linkedAccounts' => $linkedAccounts,
-        ]);
+        $kycs = KYC::all();
+        return view('kyc.index', compact('kycs'));
     }
 
+    /**
+     * Display the form for creating a new KYC entry.
+     */
+    public function create(): View
+    {
+        return view('kyc.create');
+    }
+
+    /**
+     * Store a new KYC entry.
+     */
     public function store(Request $request): JsonResponse
     {
+
         $request->validate([
-            'linked_user_email' => 'required|email|exists:users,email',
+            'document_type' => 'required|string',
+            'document_number' => 'required|string',
+            'document_image' => 'required|file|mimes:jpg,jpeg,png|max:2048',
+            'selfie_image' => 'nullable|file|mimes:jpg,jpeg,png|max:2048',
+        ]);
+        $fileUrlSelfie = null;
+
+
+        if ($request->hasFile('document_image')) {
+            $pathDocument = $request->file('document_image')->storeAs('public/kyc', time() . '_' . $request->file('document_image')->getClientOriginalName());
+        }
+
+
+        if ($request->hasFile('selfie_image')) {
+            $fileUrlSelfie = $request->file('selfie_image')->storeAs('public/kyc', time() . '_' . $request->file('selfie_image')->getClientOriginalName());
+        }
+
+        KYC::create([
+            'user_id' => Auth::user()->id,
+            'document_type' => $request->document_type,
+            'document_number' => $request->document_number,
+            'document_image' => $pathDocument,
+            'selfie_image' => $fileUrlSelfie,
         ]);
 
-        $user = Auth::user(); // Get the authenticated user
-        $linkedUser = User::where('email', $request->linked_user_email)->first(); // Get the linked user
-
-
-        // Verification of the linked user
-        if (!$linkedUser) {
-            return response()->json(['error' => 'Linked user not found.'], 404);
-        }
-
-        if ($user->linkedAccounts()->where('linked_account_id', $linkedUser->id)->exists()) {
-            return response()->json(['error' => 'You have already linked this user.'], 400);
-        }
-
-        if ($user->id === $linkedUser->id) {
-            return response()->json(['error' => 'You cannot link yourself.'], 400);
-        }
-
-        if ($user->linkedAccounts()->count() >= 5) {
-            return response()->json(['error' => 'You have reached the maximum number of linked accounts.'], 400);
-        }
-
-
-        // Create the relationship between the users
-        LinkedAccount::create([
-            'user_id' => $user->id,
-            'linked_account_id' => $linkedUser->id,
-            'status' => 'pending',
-        ]);
-
-        return response()->json(['success' => 'Account linked successfully.']);
+        return response()->json(['success' => 'KYC entry created successfully.']);
     }
 
-    public function update($linked_account_id): JsonResponse
+    public function update(Request $request, $id): JsonResponse
     {
-        $admin = Auth::user(); // Get the authenticated user
+        $request->validate([
+            'status' => 'required|string',
+        ]);
 
-        // check if the user is an admin
-        if (!$admin->isAdmin()) {
-            return response()->json(['error' => 'You are not authorized to perform this action.'], 403);
-        }
+        $kyc = KYC::findOrFail($id);
+        $kyc->status = $request->status;
+        $kyc->save();
 
-        $linkedAccount = LinkedAccount::find($linked_account_id);
-
-        if (!$linkedAccount) {
-            return response()->json(['error' => 'Linked account not found.'], 404);
-        }
-
-        $linkedAccount->status = 'approved';
-        $linkedAccount->save();
-
-        return response()->json(['success' => 'Account approved successfully.']);
+        return response()->json(['success' => 'KYC entry updated successfully.']);
     }
 
-    public function show(): JsonResponse
+    public function destroy($id): JsonResponse
     {
-        $user = Auth::user(); // Get the authenticated user
-
-        return response()->json([
-            'linkedAccounts' => $user->linkedAccounts()->get(),
-            'user' => $user,
-            'status' => $user->status,
-        ]);
+        KYC::findOrFail($id)->delete();
+        return response()->json(['success' => 'KYC entry deleted successfully.']);
     }
 }

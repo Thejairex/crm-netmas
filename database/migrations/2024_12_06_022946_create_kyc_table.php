@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('document_image'); // Puede ser una ruta a la imagen
             $table->string('selfie_image')->nullable(); // Imagen opcional
             $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
-            $table->timestamp('submitted_at')->nullable();
             $table->timestamp('verified_at')->nullable();
             $table->unsignedBigInteger('verified_by')->nullable(); // Puede ser el id del administrador
             $table->text('rejection_reason')->nullable(); // Motivo de rechazo
@@ -47,5 +46,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('linked_accounts');
+        Schema::dropIfExists('kyc_entries');
     }
 };
