@@ -14,6 +14,9 @@ class KYC extends Model
         'document_number',
         'document_image',
         'selfie_image',
+        'status',
+        'verified_at',
+        'verified_by',
     ];
 
 

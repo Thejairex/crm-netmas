@@ -27,16 +27,7 @@
                     <td>{{ $kyc->status }}</td>
                     <td>
                         @if ($kyc->status === 'pending')
-                            <form action="{{ route('kyc.update', $kyc) }}" method="POST" style="display:inline;">
-                                @csrf
-                                <input type="hidden" name="status" value="approved">
-                                <button type="submit">Aprobar</button>
-                            </form>
-                            <form action="{{ route('kyc.update', $kyc) }}" method="POST" style="display:inline;">
-                                @csrf
-                                <input type="hidden" name="status" value="rejected">
-                                <button type="submit">Rechazar</button>
-                            </form>
+                            <a href="{{ route('kyc.show', $kyc) }}">Ver"></a>
                         @endif
                         <form action="{{ route('kyc.destroy', $kyc) }}" method="POST" style="display:inline;">
                             @csrf

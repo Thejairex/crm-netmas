@@ -5,6 +5,9 @@ namespace Database\Seeders;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
+
+use function Symfony\Component\String\b;
 
 class UsersSeeder extends Seeder
 {
@@ -17,7 +20,7 @@ class UsersSeeder extends Seeder
         $user->name = 'Admin';
         $user->lastname = 'Admin';
         $user->email = 'admin@localhost';
-        $user->password = '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'; // password
+        $user->password = bcrypt('123456789'); // password
         $user->role = 'admin';
         $user->save();
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\LinkedAccount;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,8 +17,23 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): View
     {
+        try {
+            $linkedAccounts = LinkedAccount::where('user_id', $request->user()->id)->get();
+            $users = $linkedAccounts->pluck('linkedUser')->unique()->map(function ($user) {
+                return [
+                    'name' => $user->name,
+                    'lastname' => $user->lastname,
+                    'email' => $user->email,
+                ];
+            });
+        } catch (\Exception $e) {
+            $users = [];
+        }
+
+        // dd($users);
         return view('profile.edit', [
             'user' => $request->user(),
+            'linkedAccounts' => $users
         ]);
     }
 

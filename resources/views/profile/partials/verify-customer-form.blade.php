@@ -9,8 +9,8 @@
         </p>
     </header>
 
-    @if(auth()->user()->kyc_status === 'approved')
-        <p class="text-green-600">Tu verificación ha sido aprobada.</p>
+    @if(auth()->user()->kyc_status === 'verified')
+        <p class="text-green-600">Tu verificación ha sido verificada.</p>
     @elseif(auth()->user()->kyc_status === 'pending')
         <p class="text-yellow-600">Tu verificación está en proceso.</p>
     @elseif(auth()->user()->kyc_status === 'rejected')

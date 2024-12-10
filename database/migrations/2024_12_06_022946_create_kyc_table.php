@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->string('document_type');
-            $table->string('document_number');
+            $table->string('document_number')->unique();
             $table->string('document_image'); // Puede ser una ruta a la imagen
             $table->string('selfie_image')->nullable(); // Imagen opcional
             $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');

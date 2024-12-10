@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->unsignedBigInteger('parent_id')->nullable();
             $table->foreign('parent_id')->references('id')->on('users')->onDelete('cascade');
-            $table->enum('kyc_status', ['pending', 'approved', 'rejected', 'not_sent'])->default('not_sent');
+            $table->enum('kyc_status', ['pending', 'verified', 'rejected', 'no_verified'])->default('no_verified');
             $table->rememberToken();
             $table->timestamps();
         });

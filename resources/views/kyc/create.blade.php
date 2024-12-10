@@ -21,8 +21,8 @@
         <label for="document_image">Documento (Frontal):</label>
         <input type="file" name="document_image" id="document_image" required>
 
-        <label for="selfie_with_document">Selfie:</label>
-        <input type="file" name="selfie_with_document" id="selfie_with_document">
+        <label for="selfie_image">Selfie:</label>
+        <input type="file" name="selfie_image" id="selfie_image">
 
         <button type="submit">Enviar Verificación</button>
     </form>

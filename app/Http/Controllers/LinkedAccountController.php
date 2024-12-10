@@ -3,8 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\LinkedAccount;
+use App\Models\User;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
 
-class LinkedAccount extends Controller
+class LinkedAccountController extends Controller
 {
     public function index(): View
     {
@@ -18,33 +23,46 @@ class LinkedAccount extends Controller
         ]);
 
         $user = Auth::user(); // Get the authenticated user
-        $linkedUser = User::where('email', $request->linked_user_email)->first(); // Get the linked user
 
+        try {
+            $linkedUser = User::where('email', $request->linked_user_email)->first(); // Get the linked user
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Linked user not found.'], 404);
+        }
 
         // Verification of the linked user
         if (!$linkedUser) {
             return response()->json(['error' => 'Linked user not found.'], 404);
         }
-
+        
         if ($user->linkedAccounts()->where('linked_account_id', $linkedUser->id)->exists()) {
             return response()->json(['error' => 'You have already linked this user.'], 400);
         }
-
+        
         if ($user->id === $linkedUser->id) {
             return response()->json(['error' => 'You cannot link yourself.'], 400);
         }
-
+        
         if ($user->linkedAccounts()->count() >= 5) {
             return response()->json(['error' => 'You have reached the maximum number of linked accounts.'], 400);
         }
+        // dd($linkedUser);
 
 
         // Create the relationship between the users
         LinkedAccount::create([
             'user_id' => $user->id,
             'linked_account_id' => $linkedUser->id,
-            'status' => 'pending',
+            // 'status' => 'pending',
         ]);
+
+        // Create the relationship between the users
+        if (!$linkedUser->linkedAccounts()->where('linked_account_id', $user->id)->exists()) {
+            LinkedAccount::create([
+                'user_id' => $linkedUser->id,
+                'linked_account_id' => $user->id,
+            ]);
+        }
 
         return response()->json(['success' => 'Account linked successfully.']);
     }
@@ -69,14 +87,12 @@ class LinkedAccount extends Controller
         return response()->json(['success' => 'Account approved successfully.']);
     }
 
-    public function show(): JsonResponse
-    {
-        $user = Auth::user(); // Get the authenticated user
+    /**
+     * Display all user linked in the user account.
+     */
 
-        return response()->json([
-            'linkedAccounts' => $user->linkedAccounts()->get(),
-            'user' => $user,
-            'status' => $user->status,
-        ]);
-    }
+    // public function show(): 
+    // {
+    //    //
+    // }
 }

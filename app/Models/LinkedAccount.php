@@ -11,7 +11,6 @@ class LinkedAccount extends Model
     protected $fillable = [
         'user_id',
         'linked_account_id',
-        'status',
     ];
 
 
@@ -29,6 +28,6 @@ class LinkedAccount extends Model
     */
     function linkedUser()
     {
-        return $this->belongsTo(User::class, 'linked_account_id');
+        return $this->belongsTo(User::class, 'linked_account_id', 'id');
     }
 }

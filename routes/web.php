@@ -22,11 +22,13 @@ Route::middleware('auth')->group(function () {
 // KYC routes
 Route::middleware('auth')->group(function () {
     Route::get('/profile/verification', [KYCController::class, 'create'])->name('kyc.create'); // Route for creating a new KYC entry
-    Route::get('/kyc', [KYCController::class, 'index']) // Route for displaying KYC entries for the admin
-        ->name('kyc.index')
-        ->middleware('admin');
+    
 });
 
-
+// Backoffice routes
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('/backoffice/kyc', [KYCController::class, 'index'])->name('kyc.index'); // Route for listing KYC entries
+    Route::get('/backoffice/kyc/{id}', [KYCController::class, 'show'])->name('kyc.show'); // Route for showing a specific KYC entry
+});
 require __DIR__ . '/auth.php';
 require __DIR__ . '/api.php';

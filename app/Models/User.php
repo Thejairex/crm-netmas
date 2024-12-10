@@ -33,11 +33,16 @@ class User extends Authenticatable
     ];
     
 
-    public function linkedAccounts(): HasMany
-    {
-        return $this->hasMany(LinkedAccount::class, 'user_id');
-    }
+    // public function linkedAccounts(): HasMany
+    // {
+    //     return $this->hasMany(LinkedAccount::class, 'user_id');
+    // }
 
+    // En el modelo User
+    public function linkedAccounts()
+    {
+        return $this->belongsToMany(User::class, 'linked_accounts', 'user_id', 'linked_user_id');
+    }
 
     public function setPasswordAttribute($value) {
         $this->attributes['password'] = Hash::make($value);
@@ -45,6 +50,10 @@ class User extends Authenticatable
 
     public function isAdmin() {
         return $this->role === 'admin';
+    }
+
+    public function isVerified() {
+        return $this->kyc_status === 'verified';
     }
 
     public function parent(): BelongsTo {
