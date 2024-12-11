@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\KYCController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\TransactionController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -11,6 +13,18 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+
+// Service routes
+Route::middleware('auth')->group(function () {
+    Route::get('/services', [ServiceController::class, 'index'])->name('services.index');
+    Route::get('/services/create', [ServiceController::class, 'create'])->name('services.create');
+    Route::get('/services/{id}/edit', [ServiceController::class, 'edit'])->name('services.edit');
+
+    Route::get('/transactions', [TransactionController::class, 'index'])->name('transactions.index');
+    Route::get('/transactions/create/{id}', [TransactionController::class, 'create'])->name('transactions.create');
+});
+
 
 // Profile routes
 Route::middleware('auth')->group(function () {
