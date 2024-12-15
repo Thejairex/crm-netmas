@@ -17,10 +17,17 @@
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('services.index')" :active="request()->routeIs('services.index')">
-                        {{ __('Services') }}
+                    <x-nav-link :href="route('products.index')" :active="request()->routeIs('products.index')">
+                        {{ __('Products') }}
                     </x-nav-link>
                 </div>
+                @if (Auth::user()->isAdmin())
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('backoffice.index')" :active="request()->routeIs('backoffice.index')">
+                        {{ __('Backoffice') }}
+                    </x-nav-link>
+                </div>
+                @endif
             </div>
 
             <!-- Settings Dropdown -->

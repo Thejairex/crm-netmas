@@ -2,25 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Service;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
-class ServiceController extends Controller
+class ProductController extends Controller
 {
     public function index()
     {
-        $services = Service::all();
-        return view('services.index', compact('services'));
+        $products = Product::all();
+        return view('products.index', compact('products'));
     }
 
     public function create()
     {
-        return view('services.create');
+        return view('products.create');
     }
 
     public function store(Request $request)
     {
-        // Handle service creation logic here
+        // Handle product creation logic here
         $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
@@ -29,28 +29,28 @@ class ServiceController extends Controller
             'discount' => 'nullable|numeric|min:0|max:100',
         ]);
 
-        $service = Service::create($request->all());
+        $product = Product::create($request->all());
 
 
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $imageName = time() . '.' . $image->getClientOriginalExtension();
             $image->move(public_path('images'), $imageName);
-            $service->image = $imageName;
-            $service->save();
+            $product->image = $imageName;
+            $product->save();
         }
-        return redirect()->route('services.index')->with('success', 'Service created successfully.');
+        return redirect()->route('products.index')->with('success', 'Product created successfully.');
 
     }
 
     public function edit($id)
     {
-        return view('services.edit', ['service' => Service::findOrFail($id)]);
+        return view('products.edit', ['product' => Product::findOrFail($id)]);
     }
 
     public function update(Request $request, $id)
     {
-        // Handle service update logic here
+        // Handle product update logic here
         $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
@@ -59,30 +59,28 @@ class ServiceController extends Controller
             'discount' => 'nullable|numeric|min:0|max:100',
         ]);
 
-        $service = Service::findOrFail($id);
-        $service->update($request->all());
+        $product = Product::findOrFail($id);
+        $product->update($request->all());
 
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $imageName = time() . '.' . $image->getClientOriginalExtension();
             $image->move(public_path('images'), $imageName);
-            $service->image = $imageName;
-            $service->save();
+            $product->image = $imageName;
+            $product->save();
         }
 
-        return redirect()->route('services.index');
+        return redirect()->route('products.index');
     }
 
     public function destroy($id)
     {
-        Service::findOrFail($id)->delete();
-        return redirect()->route('services.index')->with('success', 'Service deleted successfully.');
+        Product::findOrFail($id)->delete();
+        return redirect()->route('products.index')->with('success', 'Product deleted successfully.');
     }
 
     public function show($id)
     {
-        return view('services.show', ['service' => Service::findOrFail($id)]);
+        return view('products.show', ['product' => Product::findOrFail($id)]);
     }
-
-
 }

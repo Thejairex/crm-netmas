@@ -4,11 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Service extends Model
+class Product extends Model
 {
-    protected $table = 'services';
+    protected $table = 'products';
 
     protected $fillable = [
+
         'name',
         'description',
         'image',
@@ -16,8 +17,8 @@ class Service extends Model
         'discount',
     ];
 
-    public function transactions()
+    public function calculateTotalPrice()
     {
-        return $this->hasMany(Transaction::class);
+        return $this->price - ($this->price * ($this->discount / 100));
     }
 }
