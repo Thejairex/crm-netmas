@@ -56,3 +56,4 @@ Route::middleware(['auth', 'admin'])->group(function () {
 });
 require __DIR__ . '/auth.php';
 require __DIR__ . '/api.php';
+require __DIR__ . '/webhook.php';
