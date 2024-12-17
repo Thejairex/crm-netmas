@@ -18,6 +18,7 @@ return new class extends Migration
             $table->decimal('amount', 10, 2);
             $table->enum('payment_method', ['mercadopago', 'crypto', 'point']);
             $table->enum('status', ['pending', 'success', 'failure'])->default('pending');
+            $table->string('external_reference')->nullable();
             $table->timestamps();
 
             // Define foreign key constraints

@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\BackOfficeController;
 use App\Http\Controllers\KYCController;
+use App\Http\Controllers\MercadoPagoController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PurchaseController;
@@ -45,7 +47,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
 
     // Backoffice products and purchases
-    Route::get('/backoffice/products', [ProductController::class, 'index'])->name('products.index');
+    // Route::get('/backoffice/products', [ProductController::class, 'index'])->name('products.index');
 
     Route::get('/backoffice/purchases', [PurchaseController::class, 'index'])->name('purchases.index');
 
@@ -54,6 +56,12 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/backoffice/kyc/{id}', [KYCController::class, 'show'])->name('kyc.show'); // Route for showing a specific KYC entry
 
 });
+
+// Payment routes
+Route::get('payment/success', [MercadoPagoController::class, 'success'])->name('payment.success');
+Route::get('payment/failure', [MercadoPagoController::class, 'failure'])->name('payment.failure');
+Route::get('payment/pending', [MercadoPagoController::class, 'pending'])->name('payment.pending');
+
 require __DIR__ . '/auth.php';
 require __DIR__ . '/api.php';
 require __DIR__ . '/webhook.php';
