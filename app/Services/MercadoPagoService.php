@@ -2,7 +2,9 @@
 
 namespace App\Services;
 
+use Exception;
 use Log;
+use MercadoPago\Client\Payment\PaymentClient;
 use MercadoPago\Client\Preference\PreferenceClient;
 use MercadoPago\Exceptions\MPApiException;
 use MercadoPago\MercadoPagoConfig;
@@ -17,6 +19,8 @@ class MercadoPagoService
     {
         MercadoPagoConfig::setAccessToken(config('services.mercadopago.access_token'));
         MercadoPagoConfig::setRuntimeEnviroment(MercadoPagoConfig::LOCAL);
+
+
     }
 
     public function createPreference($items, $payer)
@@ -40,7 +44,7 @@ class MercadoPagoService
             "payment_methods" => $paymentMethods,
             "back_urls" => $backUrls,
             "statement_descriptor" => "Netmas",
-            "external_reference" => "1234567890",
+            "external_reference" => "ORDER-" . time(),
             "expires" => false,
             // "notification_url" => route('webhook'),
             "auto_return" => 'approved',
@@ -99,24 +103,22 @@ class MercadoPagoService
         }
     }
 
-    public function getPaymentById($paymentData){
+    public function getPaymentById($paymentId){
         try {
-            $client = new PreferenceClient();
-            $request = new MPSearchRequest(10, 1);
-            $request->id = $paymentData['id'];
-            $request->live_mode = $paymentData['live_mode'];
-            $request->user_id = $paymentData['user_id'];
-            $request->type = $paymentData['type'];
-            // $request->data_created = $paymentData['data_created'];
-            $preference = $client->search($request);
-            Log::info('Preference info', [
-                'preference' => $preference
+            $client = new PaymentClient();
+            $payment = $client->get($paymentId);
+            Log::info('payment info', [
+                'payment' => $payment
             ]);
 
-            return $preference;
+            return $payment;
         } catch (MPApiException $e) {
-            Log::error($e);
-            return $e->getMessage();
+            $response = $e->getApiResponse()->getContent();
+            Log::error("Error al obtener el pago", [
+                'message' => $e->getMessage(),
+                'response' => $response,
+            ]);
+
         }
     }
 }

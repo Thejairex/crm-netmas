@@ -59,6 +59,15 @@ class ProductSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
+            [
+                'name' => 'Producto F',
+                'description' => 'El producto F es una herramienta de alto rendimiento para desarrolladores.',
+                'image' => 'product_f.jpg',
+                'price' => 19.99,
+                'discount' => null,  // Sin descuento
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
         ];
 
         Product::insert($products);
