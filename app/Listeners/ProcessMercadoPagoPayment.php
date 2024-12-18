@@ -3,8 +3,8 @@
 namespace App\Listeners;
 
 use App\Events\MercadoPagoPaymentUpdated;
-use App\Models\Product;
 use App\Models\Purchase;
+use App\Services\CommissionService;
 use App\Services\MercadoPagoService;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
@@ -15,11 +15,14 @@ class ProcessMercadoPagoPayment
     /**
      * Create the event listener.
      */
+    protected $commissionService;
     protected $mercadoPagoService;
     public function __construct(
-        MercadoPagoService $mercadoPagoService
+        MercadoPagoService $mercadoPagoService,
+        CommissionService $commissionService
     ) {
         $this->mercadoPagoService = $mercadoPagoService;
+        $this->commissionService = $commissionService;
     }
 
     /**
@@ -39,6 +42,8 @@ class ProcessMercadoPagoPayment
             if ($purchase->status == 'pending') {
                 $purchase->status = 'approved';
                 $purchase->save();
+
+                $this->commissionService->assingComission($purchase);
             }
         }
         ;
