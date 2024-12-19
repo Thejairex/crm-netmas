@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('product_id');
             $table->decimal('amount', 10, 2);
-            $table->enum('payment_method', ['mercadopago', 'crypto', 'point']);
+            $table->enum('payment_method', ['mercadopago', 'crypto', 'points']);
             $table->enum('status', ['pending', 'approved', 'failure'])->default('pending');
             $table->string('external_reference')->nullable();
             $table->timestamps();

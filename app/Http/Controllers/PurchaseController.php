@@ -5,15 +5,19 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Models\Purchase;
 use App\Services\MercadoPagoService;
+use App\Services\PointsService;
 use Illuminate\Http\Request;
 
 class PurchaseController extends Controller
 {
     protected $mercadoPagoService;
+    protected $pointsService;
     public function __construct(
-        MercadoPagoService $mercadoPagoService
+        MercadoPagoService $mercadoPagoService,
+        PointsService $pointsService
     ){
         $this->mercadoPagoService = $mercadoPagoService;
+        $this->pointsService = $pointsService;
     }
 
     public function index()
@@ -53,12 +57,26 @@ class PurchaseController extends Controller
                 return redirect()->route('purchases.create', $product->id)->with('error', $preference);
             }
             $purchase->external_reference = $preference->external_reference;
+            $purchase->save();
+
+            // return redirect($preference->init_point); // Production
+            return redirect($preference->sandbox_init_point); // Local
         }
 
-        $purchase->save();
+        if ($request->payment_method == 'crypto') {
+            $purchase->status = 'approved';
+        }
 
-        // return redirect($preference->init_point); // Production
-        return redirect($preference->sandbox_init_point); // Local
+        if ($request->payment_method == 'points') {
+            $this->pointsService->spendPoints($purchase);
+            $purchase->status = 'approved';
+            $purchase->save();
+
+            return redirect()->route('payment.success')->with('success', 'Payment successful, points have been subtracted.');
+        }
+
+        // $purchase->delete();
+        return redirect()->route('payment.failure')->with('failure', 'Payment failed.');
     }
 
     public function destroy($id)

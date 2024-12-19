@@ -2,7 +2,9 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Purchase;
 use App\Services\MercadoPagoService;
+use App\Services\PointsService;
 use Illuminate\Console\Command;
 
 class MyCustomCommand extends Command
@@ -26,7 +28,8 @@ class MyCustomCommand extends Command
      */
     public function handle()
     {
-        $mercadoPagoService = new MercadoPagoService();
-        $mercadoPagoService->getPaymentById(1);
+        $pointsService = new PointsService();
+        $purchase = Purchase::latest()->first();
+        $pointsService->earnPoints($purchase);
     }
 }

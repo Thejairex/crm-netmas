@@ -20,6 +20,7 @@ class User extends Authenticatable
         'password',
         'role',
         'email',
+        'balance_points',
         'parent_id'
     ];
 
@@ -31,7 +32,7 @@ class User extends Authenticatable
     protected $casts = [
         'password' => 'hashed',
     ];
-    
+
 
     // public function linkedAccounts(): HasMany
     // {
@@ -65,7 +66,7 @@ class User extends Authenticatable
 
     public function children(): HasMany {
         /**
-         * Returns the children of the user if it exists         
+         * Returns the children of the user if it exists
          */
         return $this->hasMany(User::class);
     }
