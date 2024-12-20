@@ -1,20 +1,24 @@
 <?php
 
 use App\Http\Controllers\BackOfficeController;
+use App\Http\Controllers\ImeiValidationController;
 use App\Http\Controllers\KYCController;
 use App\Http\Controllers\LinkedAccountController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PurchaseController;
+use App\Http\Controllers\SupportTicketController;
 use Illuminate\Support\Facades\Route;
 
 
 
 // User API routes
 Route::middleware('auth')->group(function () {
-   Route::post('/link-account', [LinkedAccountController::class, 'store']); // Route for linking accounts for the user
+    Route::post('/link-account', [LinkedAccountController::class, 'store']); // Route for linking accounts for the user
 
-   Route::post('/kyc/store', [KYCController::class, 'store']); // Route for storing KYC entries for the user
+    Route::post('/kyc/store', [KYCController::class, 'store']); // Route for storing KYC entries for the user
     // Route for updating KYC entries for the user
+
+    Route::post('/imei-validation', [ImeiValidationController::class, 'store'])->name('validation.store');
 
 });
 
@@ -26,7 +30,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::delete('/backoffice/users/{id}', [BackOfficeController::class, 'userDestroy'])->name('backoffice.users.destroy');
 });
 
-// Service API routes
+// Product API routes
 Route::middleware('auth')->group(function () {
     Route::post('/products', [ProductController::class, 'store'])->name('products.store'); // Route for creating a new service
     Route::put('/products/{id}', [ProductController::class, 'update'])->name('products.update'); // Route for updating a service
@@ -37,7 +41,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/purchases/{id}', [PurchaseController::class, 'destroy'])->name('purchases.destroy'); // Route for deleting a transaction
 });
 
-// Purchase API routes
+// Support API routes
 Route::middleware('auth')->group(function () {
-    Route::delete('/purchases/{id}', [PurchaseController::class, 'destroy'])->name('purchases.destroy'); // Route for deleting a transaction
+    Route::post('/support/store', [SupportTicketController::class, 'store'])->name('support.store'); // Route for creating a new support ticket
+    Route::put('/support/{id}', [SupportTicketController::class, 'update'])->name('support.update'); // Route for updating a support ticket
+    Route::delete('/support/{id}', [SupportTicketController::class, 'destroy'])->name('support.destroy'); // Route for deleting a support ticket
+    Route::post('/support/assign/{id}', [SupportTicketController::class, 'assign'])->name('support.assign'); // Route for assigning a support ticket
 });

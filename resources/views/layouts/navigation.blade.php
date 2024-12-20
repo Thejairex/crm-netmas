@@ -58,6 +58,14 @@
                             {{ __('Profile') }}
                         </x-dropdown-link>
 
+                        <x-dropdown-link :href="route('validation.create')">
+                            {{ __('IMEI Validation') }}
+                        </x-dropdown-link>
+
+                        <x-dropdown-link :href="route('support.create')">
+                            {{ __('Support') }}
+                        </x-dropdown-link>
+
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
