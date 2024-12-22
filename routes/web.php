@@ -10,6 +10,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\SupportTicketController;
+use App\Http\Controllers\TicketController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -78,9 +79,10 @@ Route::middleware('auth')->group(function () {
     // Education routes
     Route::get('/education', [EducationalResourceController::class, 'index'])->name('educational-resources.index');
     Route::get('/education/create', [EducationalResourceController::class, 'create'])->name('educational-resources.create');
-
     Route::get('/education/{id}', [EducationalResourceController::class, 'show'])->name('educational-resources.show');
-    Route::get('/education/{id}/download', [EducationalResourceController::class, 'download'])->name('educational-resources.download');
+
+    // event routes
+    Route::get('/events', [TicketController::class, 'index'])->name('events.index');
 });
 
 require __DIR__ . '/auth.php';
