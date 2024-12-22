@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BackOfficeController;
+use App\Http\Controllers\EducationalResourceController;
 use App\Http\Controllers\ImeiValidationController;
 use App\Http\Controllers\KYCController;
 use App\Http\Controllers\LinkedAccountController;
@@ -47,4 +48,11 @@ Route::middleware('auth')->group(function () {
     Route::put('/support/{id}', [SupportTicketController::class, 'update'])->name('support.update'); // Route for updating a support ticket
     Route::delete('/support/{id}', [SupportTicketController::class, 'destroy'])->name('support.destroy'); // Route for deleting a support ticket
     Route::post('/support/assign/{id}', [SupportTicketController::class, 'assign'])->name('support.assign'); // Route for assigning a support ticket
+});
+
+// Educational Resource API routes
+Route::middleware('auth')->group(function () {
+    Route::post('/educational-resources', [EducationalResourceController::class, 'store'])->name('educational-resources.store'); // Route for creating a new educational resource
+    Route::put('/educational-resources/{id}', [EducationalResourceController::class, 'update'])->name('educational-resources.update'); // Route for updating an educational resource
+    Route::delete('/educational-resources/{id}', [EducationalResourceController::class, 'destroy'])->name('educational-resources.destroy'); // Route for deleting an educational resource
 });

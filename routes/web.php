@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BackOfficeController;
+use App\Http\Controllers\EducationalResourceController;
 use App\Http\Controllers\ImeiValidationController;
 use App\Http\Controllers\KYCController;
 use App\Http\Controllers\MercadoPagoController;
@@ -74,8 +75,13 @@ Route::middleware('auth')->group(function () {
     // Imei validation routes
     Route::get('/imei-validation', [ImeiValidationController::class, 'create'])->name('validation.create');
 
-});
+    // Education routes
+    Route::get('/education', [EducationalResourceController::class, 'index'])->name('educational-resources.index');
+    Route::get('/education/create', [EducationalResourceController::class, 'create'])->name('educational-resources.create');
 
+    Route::get('/education/{id}', [EducationalResourceController::class, 'show'])->name('educational-resources.show');
+    Route::get('/education/{id}/download', [EducationalResourceController::class, 'download'])->name('educational-resources.download');
+});
 
 require __DIR__ . '/auth.php';
 require __DIR__ . '/api.php';

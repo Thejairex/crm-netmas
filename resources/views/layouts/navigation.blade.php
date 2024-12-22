@@ -21,6 +21,11 @@
                         {{ __('Products') }}
                     </x-nav-link>
                 </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('educational-resources.index')" :active="request()->routeIs('educational-resources.index')">
+                        {{ __('Educational Resources') }}
+                    </x-nav-link>
+                </div>
                 @if (Auth::user()->isAdmin())
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('backoffice.index')" :active="request()->routeIs('backoffice.index')">
