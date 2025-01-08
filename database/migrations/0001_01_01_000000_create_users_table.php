@@ -18,11 +18,16 @@ return new class extends Migration
             $table->string('password');
             $table->string('role')->default('customer');
             $table->string('email')->unique();
+            $table->decimal('balance_points', 10, 2)->default(0);
             $table->unsignedBigInteger('parent_id')->nullable();
-            $table->foreign('parent_id')->references('id')->on('users')->onDelete('cascade');
+            $table->enum('kyc_status', ['pending', 'verified', 'rejected', 'no_verified'])->default('no_verified');
             $table->rememberToken();
             $table->timestamps();
+
+            $table->foreign('parent_id')->references('id')->on('users')->onDelete('cascade');
         });
+
+
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
             $table->string('email')->primary();

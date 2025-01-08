@@ -34,5 +34,13 @@ return [
             'channel' => env('SLACK_BOT_USER_DEFAULT_CHANNEL'),
         ],
     ],
+    'mercadopago' => [
+            'access_token' => env('MERCADO_PAGO_ACCESS_TOKEN'),
+            'environment' => env('MERCADOPAGO_ENVIRONMENT'),
+    ],
+    'ticketmaster' => [
+            'access_token' => env('TICKETMASTER_ACCESS_TOKEN'),
+            // 'environment' => env('TICKETMASTER_ENVIRONMENT'),
+    ],
 
 ];

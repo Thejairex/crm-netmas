@@ -16,7 +16,37 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
                 </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('products.index')" :active="request()->routeIs('products.index')">
+                        {{ __('Products') }}
+                    </x-nav-link>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('educational-resources.index')" :active="request()->routeIs('educational-resources.index')">
+                        {{ __('Educational Resources') }}
+                    </x-nav-link>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('events.index')" :active="request()->routeIs('events.index')">
+                        {{ __('Events') }}
+                    </x-nav-link>
+                </div>
+
+                @can('backoffice')
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('backoffice.index')" :active="request()->routeIs('backoffice.index')">
+                        {{ __('Backoffice') }}
+                    </x-nav-link>
+                </div>
+                @endcan
             </div>
+            <!-- Balances -->
+            <div class="hidden sm:flex sm:items-center sm:ms-6">
+                <a href="#" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
+                    {{ __('Puntos') }}: {{ Auth::user()->balance_points }}
+                </a>
+            </div>
+
 
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ms-6">
@@ -31,11 +61,20 @@
                                 </svg>
                             </div>
                         </button>
+
                     </x-slot>
 
                     <x-slot name="content">
                         <x-dropdown-link :href="route('profile.edit')">
                             {{ __('Profile') }}
+                        </x-dropdown-link>
+
+                        <x-dropdown-link :href="route('validation.create')">
+                            {{ __('IMEI Validation') }}
+                        </x-dropdown-link>
+
+                        <x-dropdown-link :href="route('support.create')">
+                            {{ __('Support') }}
                         </x-dropdown-link>
 
                         <!-- Authentication -->

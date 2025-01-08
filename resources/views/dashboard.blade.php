@@ -13,7 +13,7 @@
                 </div>
                 <div class="border-t border-gray-200"></div>
                 <div class="p-6 text-gray-900">
-                    {{ Auth::user()->name }} {{ Auth::user()->lastname }}
+                    {{ Auth::user()->name }} {{ Auth::user()->lastname }} ({{Auth::user()->role}})
                     @if (Auth::user()->parent_id)
                         <div>
                             Parent: {{ Auth::user()->parent->name }}

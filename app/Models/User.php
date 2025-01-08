@@ -20,6 +20,7 @@ class User extends Authenticatable
         'password',
         'role',
         'email',
+        'balance_points',
         'parent_id'
     ];
 
@@ -29,12 +30,31 @@ class User extends Authenticatable
     ];
 
     protected $casts = [
-        'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
 
+
+    // public function linkedAccounts(): HasMany
+    // {
+    //     return $this->hasMany(LinkedAccount::class, 'user_id');
+    // }
+
+    // En el modelo User
+    public function linkedAccounts()
+    {
+        return $this->belongsToMany(User::class, 'linked_accounts', 'user_id', 'linked_user_id');
+    }
+
     public function setPasswordAttribute($value) {
         $this->attributes['password'] = Hash::make($value);
+    }
+
+    public function isAdmin() {
+        return $this->role === 'admin';
+    }
+
+    public function isVerified() {
+        return $this->kyc_status === 'verified';
     }
 
     public function parent(): BelongsTo {
@@ -46,7 +66,7 @@ class User extends Authenticatable
 
     public function children(): HasMany {
         /**
-         * Returns the children of the user if it exists         
+         * Returns the children of the user if it exists
          */
         return $this->hasMany(User::class);
     }
