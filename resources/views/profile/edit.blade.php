@@ -20,16 +20,24 @@
                 </div>
             </div>
 
-            @if (Auth::user()->isVerified())
+            @can('CompletedKYC')
                 <div>
                     <!-- Vincular cuenta -->
                     <div class="max-w-xl">
                         @include('profile.partials.link-account-form')
                     </div>
                 </div>
-
-                
-            @endif
+            @else
+                <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+                    <div class="max-w-xl">
+                        <p class="text-sm text-gray-600">
+                            Para vincular su cuenta con otras cuentas, debe verificar su
+                            identidad primero. Por favor, verifique su identidad y
+                            vuelva a intentarlo.
+                        </p>
+                    </div>
+                </div>
+            @endcan
 
 
             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">

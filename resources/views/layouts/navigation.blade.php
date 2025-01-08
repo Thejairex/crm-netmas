@@ -32,13 +32,13 @@
                     </x-nav-link>
                 </div>
 
-                @if (Auth::user()->isAdmin())
+                @can('backoffice')
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('backoffice.index')" :active="request()->routeIs('backoffice.index')">
                         {{ __('Backoffice') }}
                     </x-nav-link>
                 </div>
-                @endif
+                @endcan
             </div>
             <!-- Balances -->
             <div class="hidden sm:flex sm:items-center sm:ms-6">
