@@ -73,4 +73,11 @@ class ProfileController extends Controller
 
         return Redirect::to('/');
     }
+
+    public function tree(Request $request)
+    {
+        return view('profile.tree', [
+            'user' => $request->user(),
+        ]);
+    }
 }

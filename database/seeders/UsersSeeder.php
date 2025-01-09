@@ -2,12 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\User;
 use Illuminate\Support\Facades\Hash;
-
-use function Symfony\Component\String\b;
 
 class UsersSeeder extends Seeder
 {
@@ -16,13 +14,43 @@ class UsersSeeder extends Seeder
      */
     public function run(): void
     {
-        $user = new User();
-        $user->name = 'Admin';
-        $user->lastname = 'Admin';
-        $user->email = 'admin@localhost';
-        $user->password = bcrypt('123456789'); // password
-        $user->role = 'admin';
-        $user->save();
+        $fistUser = User::create([
+            'name' => 'Admin',
+            'lastname' => 'User',
+            'email' => 'admin@example.com',
+            'password' => 'password123', // password
+            'role' => 'admin',
+        ]);
 
+        $fistUser;
+        $users = [
+            [
+                'name' => 'Test1',
+                'lastname' => 'User',
+                'email' => 'user1@example.com',
+                'password' => 'test12345', // Contraseña: password123
+                'role' => 'admin',
+                'parent_id' => $fistUser->id,
+            ],
+            [
+                'name' => 'Test2',
+                'lastname' => 'User',
+                'email' => 'user2@example.com',
+                'password' => 'mypassword', // Contraseña: password123
+                'role' => 'admin',
+                'parent_id' => $fistUser->id,
+            ],
+            [
+                'name' => 'Test3',
+                'lastname' => 'User',
+                'email' => 'user3@example.com',
+                'password' => 'test12345', // Contraseña: password123
+                'role' => 'admin',
+                'parent_id' => $fistUser->id,
+            ],
+        ];
+        foreach ($users as $user) {
+            User::create($user);
+        }
     }
 }

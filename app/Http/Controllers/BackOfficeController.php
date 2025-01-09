@@ -19,6 +19,10 @@ class BackOfficeController extends Controller
         ]);
     }
 
+    public function userCreate()
+    {
+        return view('backoffice.users.create');
+    }
 
     public function userUpdate(Request $request, $id)
     {
@@ -26,7 +30,7 @@ class BackOfficeController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'lastname' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,'.$id],
-            'role' => ['required', 'string', 'in:admin,user']
+            'role' => ['required', 'string', 'in:admin,user,supplier'],
         ]);
 
         $user = User::findOrFail($id);

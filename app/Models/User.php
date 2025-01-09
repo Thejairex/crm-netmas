@@ -61,13 +61,14 @@ class User extends Authenticatable
         /**
          * Returns the parent of the user if it exists
          */
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'parent_id');
     }
 
     public function children(): HasMany {
         /**
          * Returns the children of the user if it exists
          */
-        return $this->hasMany(User::class);
+        return $this->hasMany(User::class, 'parent_id');
+        
     }
 }

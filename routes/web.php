@@ -38,6 +38,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/profile/verification', [KYCController::class, 'create'])->name('kyc.create');
+    Route::get('/profile/tree', [ProfileController::class, 'tree'])->name('profile.tree');
 });
 
 // Backoffice routes
@@ -46,6 +47,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
     // Backoffice users
     Route::get('/backoffice/users', [BackOfficeController::class, 'users'])->name('backoffice.users');
+    Route::get('/backoffice/users/new', [BackOfficeController::class, 'userCreate'])
+        ->name('backoffice.users.create');
     Route::get('/backoffice/users/{id}', [BackOfficeController::class, 'userEdit'])->name('backoffice.users.edit');
 
     // Backoffice purchases

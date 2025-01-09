@@ -32,13 +32,17 @@
                     </x-nav-link>
                 </div>
 
-                @can('backoffice')
+                
+
+                @if (Auth::user()->isAdmin())
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('backoffice.index')" :active="request()->routeIs('backoffice.index')">
                         {{ __('Backoffice') }}
                     </x-nav-link>
                 </div>
-                @endcan
+                @endif
+
+
             </div>
             <!-- Balances -->
             <div class="hidden sm:flex sm:items-center sm:ms-6">
@@ -67,6 +71,9 @@
                     <x-slot name="content">
                         <x-dropdown-link :href="route('profile.edit')">
                             {{ __('Profile') }}
+                        </x-dropdown-link>
+                        <x-dropdown-link :href="route('profile.tree')">
+                            {{ __('Tree') }}
                         </x-dropdown-link>
 
                         <x-dropdown-link :href="route('validation.create')">

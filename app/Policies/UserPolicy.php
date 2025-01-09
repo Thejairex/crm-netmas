@@ -63,7 +63,7 @@ class UserPolicy
         return false;
     }
 
-    public function manageRoles(User $user, User $model): bool
+    public function backoffice(User $user): bool
     {
         return $user->role === 'admin';
     }
@@ -82,4 +82,6 @@ class UserPolicy
         // Verificar si el usuario tiene menos de 5 cuentas vinculadas.
         return $authUser->linkedAccounts()->count() < 5;
     }
+
+
 }
