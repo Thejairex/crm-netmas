@@ -16,8 +16,12 @@ return new class extends Migration
             $table->string('name');
             $table->string('lastname');
             $table->string('password');
-            $table->string('role')->default('customer');
+            $table->string('phone')->nullable();
             $table->string('email')->unique();
+            $table->string('role')->default('customer');
+            $table->enum('status', ['active', 'inactive'])->default('active');
+            $table->unsignedBigInteger('rank_id')->nullable();
+            $table->unsignedBigInteger('next_rank_id')->default(1)->nullable();
             $table->decimal('balance_points', 10, 2)->default(0);
             $table->unsignedBigInteger('parent_id')->nullable();
             $table->enum('kyc_status', ['pending', 'verified', 'rejected', 'no_verified'])->default('no_verified');
@@ -25,6 +29,8 @@ return new class extends Migration
             $table->timestamps();
 
             $table->foreign('parent_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('rank_id')->references('id')->on('ranks')->onDelete('set null');
+            $table->foreign('next_rank_id')->references('id')->on('ranks')->onDelete('set null');
         });
 
 

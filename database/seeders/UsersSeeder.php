@@ -20,6 +20,7 @@ class UsersSeeder extends Seeder
             'email' => 'admin@example.com',
             'password' => 'password123', // password
             'role' => 'admin',
+            
         ]);
 
         $fistUser;

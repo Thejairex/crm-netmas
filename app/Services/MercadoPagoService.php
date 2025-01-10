@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Product;
 use Exception;
 use Log;
 use MercadoPago\Client\Payment\PaymentClient;
@@ -61,7 +62,7 @@ class MercadoPagoService
                 'title' => $product->name,
                 'description' => $product->description,
                 'quantity' => 1,
-                'category_id' => 'services',
+                'category_id' => $product->category_id,
                 'unit_price' => $product->calculateTotalPrice(),
                 // 'currency_id' => '',
 

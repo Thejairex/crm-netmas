@@ -11,15 +11,28 @@
                 <div class="p-6 text-gray-900">
                     {{ __("You're logged in!") }}
                 </div>
-                <div class="border-t border-gray-200"></div>
-                <div class="p-6 text-gray-900">
-                    {{ Auth::user()->name }} {{ Auth::user()->lastname }} ({{Auth::user()->role}})
-                    @if (Auth::user()->parent_id)
-                        <div>
-                            Parent: {{ Auth::user()->parent->name }}
+                <div class="flex flex-col md:flex-row md:justify-between">
+                    <div class="mb-4 md:mb-0">
+                        <p class="text-lg font-semibold">{{ __('Welcome,') }} {{ auth()->user()->name }}!</p>
+                        @can('ranked', auth()->user())
+
+                        @if (auth()->user()->rank)
+                        <p class="text-sm">
+                            {{ __('Your current rank is :rank.', ['rank' => auth()->user()->rank->name]) }}</p>
+                            @endif
+
+                        @if ($nextRank = auth()->user()->nextRank)
+                            <p class="text-sm">
+                                {{ __('Your next rank is :rank and you need :points points to reach it.', ['rank' => $nextRank->name, 'points' => $nextRank->points - auth()->user()->points]) }}
+                            </p>
+                        @endif
+                    </div>
+                    <div class="flex items-center">
+                        <p class="text-lg font-semibold">{{ __('You have') }} {{ auth()->user()->balance_points }}
+                            {{ __('points.') }}</p>
                         </div>
-                    @endif
-                </div>
+                        @endcan
+                    </div>
             </div>
         </div>
     </div>

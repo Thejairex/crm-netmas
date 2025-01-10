@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Services\MercadoPagoService;
 use App\Services\PointsService;
+use App\Services\PurchaseService;
 use Illuminate\Support\ServiceProvider;
 
 class PaymentServiceProvider extends ServiceProvider
@@ -19,6 +20,10 @@ class PaymentServiceProvider extends ServiceProvider
 
         $this->app->singleton(PointsService::class, function () {
             return new PointsService();
+        });
+
+        $this->app->singleton(PurchaseService::class, function () {
+            return new PurchaseService();
         });
     }
 

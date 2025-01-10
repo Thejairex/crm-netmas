@@ -20,6 +20,7 @@ class ProductSeeder extends Seeder
                 'image' => 'product_a.jpg',
                 'price' => 199.99,
                 'discount' => 10.00,  // 10% de descuento
+                'category_id' => 1,
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
@@ -29,6 +30,7 @@ class ProductSeeder extends Seeder
                 'image' => 'product_b.jpg',
                 'price' => 350.50,
                 'discount' => 20.00,  // 20% de descuento
+                'category_id' => 1,
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
@@ -38,6 +40,7 @@ class ProductSeeder extends Seeder
                 'image' => 'product_c.jpg',
                 'price' => 499.99,
                 'discount' => null,  // Sin descuento
+                'category_id' => 2,
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
@@ -47,6 +50,7 @@ class ProductSeeder extends Seeder
                 'image' => 'product_d.jpg',
                 'price' => 99.99,
                 'discount' => 5.00,  // 5% de descuento
+                'category_id' => 1,
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
@@ -56,6 +60,7 @@ class ProductSeeder extends Seeder
                 'image' => 'product_e.jpg',
                 'price' => 799.99,
                 'discount' => 15.00,  // 15% de descuento
+                'category_id' => 2,
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
@@ -65,6 +70,17 @@ class ProductSeeder extends Seeder
                 'image' => 'product_f.jpg',
                 'price' => 19.99,
                 'discount' => null,  // Sin descuento
+                'category_id' => 2,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name' => 'Basic Supplier Package',
+                'description' => 'Paquete de proveedor.',
+                'image' => 'supplier_package.jpg',
+                'price' => 149.99,
+                'discount' => null,  // Sin descuento
+                'category_id' => 3,
                 'created_at' => now(),
                 'updated_at' => now(),
             ],

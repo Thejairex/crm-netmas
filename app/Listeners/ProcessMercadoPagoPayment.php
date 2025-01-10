@@ -6,6 +6,8 @@ use App\Events\MercadoPagoPaymentUpdated;
 use App\Models\Purchase;
 use App\Services\CommissionService;
 use App\Services\MercadoPagoService;
+use App\Services\PointsService;
+use App\Services\PurchaseService;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Log;
@@ -15,14 +17,13 @@ class ProcessMercadoPagoPayment
     /**
      * Create the event listener.
      */
-    protected $commissionService;
-    protected $mercadoPagoService;
-    public function __construct(
-        MercadoPagoService $mercadoPagoService,
-        CommissionService $commissionService
-    ) {
+    protected $purchaseService, $mercadoPagoService;
+    public function __construct(PurchaseService $purchaseService,
+                                MercadoPagoService $mercadoPagoService,)
+    {
+
+        $this->purchaseService = $purchaseService;
         $this->mercadoPagoService = $mercadoPagoService;
-        $this->commissionService = $commissionService;
     }
 
     /**
@@ -42,18 +43,16 @@ class ProcessMercadoPagoPayment
             $purchase->status = $payment->status;
             $purchase->save();
 
-        // Si estamos en local, obtenemos el último pago pendiente y actualizamos el estado
+            // Si estamos en local, obtenemos el último pago pendiente y actualizamos el estado
         } else {
             $purchase = Purchase::latest()->first();
             if ($purchase->status == 'pending') {
                 $purchase->status = 'approved';
                 $purchase->save();
-
-
             }
         }
-        $this->commissionService->assingComission($purchase);
 
-        
+        $this->purchaseService->processPurchase($purchase);
     }
 }
+

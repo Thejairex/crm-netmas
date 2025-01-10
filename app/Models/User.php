@@ -18,10 +18,14 @@ class User extends Authenticatable
         'name',
         'lastname',
         'password',
+        'phone',
         'role',
+        'status',
+        'rank_id',
         'email',
         'balance_points',
-        'parent_id'
+        'parent_id',
+        'kyc_status',
     ];
 
     protected $hidden = [
@@ -33,11 +37,6 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-
-    // public function linkedAccounts(): HasMany
-    // {
-    //     return $this->hasMany(LinkedAccount::class, 'user_id');
-    // }
 
     // En el modelo User
     public function linkedAccounts()
@@ -69,6 +68,16 @@ class User extends Authenticatable
          * Returns the children of the user if it exists
          */
         return $this->hasMany(User::class, 'parent_id');
-        
+
+    }
+
+    public function rank(): BelongsTo
+    {
+        return $this->belongsTo(Ranks::class);
+    }
+
+    public function nextRank(): BelongsTo
+    {
+        return $this->belongsTo(Ranks::class, 'next_rank_id');
     }
 }

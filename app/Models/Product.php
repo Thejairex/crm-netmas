@@ -21,4 +21,9 @@ class Product extends Model
     {
         return $this->price - ($this->price * ($this->discount / 100));
     }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
 }

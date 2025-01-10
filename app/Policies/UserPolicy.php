@@ -83,5 +83,9 @@ class UserPolicy
         return $authUser->linkedAccounts()->count() < 5;
     }
 
-
+    public function ranked(User $authUser)
+    {
+        // Verificar si el usuario tiene un rank.
+        return $authUser->rank;
+    }
 }
