@@ -16,7 +16,8 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth')->group(function () {
     Route::post('/link-account', [LinkedAccountController::class, 'store']); // Route for linking accounts for the user
 
-    Route::post('/kyc/store', [KYCController::class, 'store']); // Route for storing KYC entries for the user
+    Route::post('/kyc/store', [KYCController::class, 'store'])
+        ->name('kyc.store'); // Route for storing KYC entries for the user
     // Route for updating KYC entries for the user
 
     Route::post('/imei-validation', [ImeiValidationController::class, 'store'])->name('validation.store');

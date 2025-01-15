@@ -17,10 +17,12 @@ return new class extends Migration
             $table->text('description');
             $table->string('image')->nullable();
             $table->unsignedBigInteger('category_id');
+            $table->boolean('is_supplier_pack')->default(false);
             $table->decimal('price', 10, 2);
             $table->decimal('discount', 9, 2)->nullable();
             $table->timestamps();
 
+            // Define foreign key constraints
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
         });
     }

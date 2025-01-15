@@ -64,6 +64,11 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <button onclick="navigator.clipboard.writeText('{{ $user->referralLink() }}')"
+                    class="bg-blue-500 hover:bg-blue-700 font-bold py-2 px-4 rounded">
+                    Copy Referral Link
+                </button>
+
                 <div class="p-6 bg-white border-b border-gray-200">
                     <!-- Árbol Genealógico -->
                     <div class="tree">
@@ -73,10 +78,12 @@
                                 <ul>
                                     @foreach ($user->children as $child)
                                         <li>
-                                            <span>{{ $child->name }} {{ $child->lastname }} ({{ $child->role }})</span>
+                                            <span>{{ $child->name }} {{ $child->lastname }}
+                                                ({{ $child->role }})</span>
                                             <ul>
                                                 @foreach ($child->children as $grandchild)
-                                                    <li><span>{{ $grandchild->name }} {{ $grandchild->lastname }} ({{ $grandchild->role }})</span></li>
+                                                    <li><span>{{ $grandchild->name }} {{ $grandchild->lastname }}
+                                                            ({{ $grandchild->role }})</span></li>
                                                 @endforeach
                                             </ul>
                                         </li>

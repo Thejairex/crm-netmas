@@ -4,6 +4,21 @@
 
         <input type="hidden" name="referralUser" value="{{ request('ref') }}">
 
+        <!-- Name -->
+        <div>
+            <x-input-label for="name" :value="__('Name')" />
+            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
+            <x-input-error :messages="$errors->get('name')" class="mt-2" />
+        </div>
+
+        <!-- Lastname -->
+
+        <div class="mt-4">
+            <x-input-label for="lastname" :value="__('Lastname')" />
+            <x-text-input id="lastname" class="block mt-1 w-full" type="text" name="lastname" :value="old('lastname')" required autocomplete="lastname" />
+            <x-input-error :messages="$errors->get('name')" class="mt-2" />
+        </div>
+
         <!-- Username -->
 
         <div class="mt-4">
@@ -18,6 +33,17 @@
             <x-input-label for="email" :value="__('Email')" />
             <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
+        </div>
+
+        <!-- Role -->
+        <div class="mt-4">
+            <x-input-label for="role" :value="__('Role')" />
+            <select name="role" id="role" class="block mt-1 w-full">
+                <option value="customer">Customer</option>
+                <option value="supplier">Supplier</option>
+                <option value="admin">Admin</option>
+            </select>
+            <x-input-error :messages="$errors->get('role')" class="mt-2" />
         </div>
 
         <!-- Password -->

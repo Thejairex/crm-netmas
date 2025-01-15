@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Models\LinkedAccount;
 use App\Models\User;
@@ -20,9 +21,14 @@ class LinkedAccountController extends Controller
     {
         $request->validate([
             'linked_user_email' => 'required|email|exists:users,email',
+            'password' => 'required|string',
         ]);
 
         $user = Auth::user(); // Get the authenticated user
+        if (!Hash::check($request->password, $user->password)) {
+            return response()->json(['error' => 'The password is incorrect.'], 401);
+        }
+
 
         try {
             $linkedUser = User::where('email', $request->linked_user_email)->first(); // Get the linked user
@@ -30,23 +36,17 @@ class LinkedAccountController extends Controller
             return response()->json(['error' => 'Linked user not found.'], 404);
         }
 
-        // Verification of the linked user
-        if (!$linkedUser) {
-            return response()->json(['error' => 'Linked user not found.'], 404);
-        }
-        
         if ($user->linkedAccounts()->where('linked_account_id', $linkedUser->id)->exists()) {
             return response()->json(['error' => 'You have already linked this user.'], 400);
         }
-        
-        if ($user->id === $linkedUser->id) {
-            return response()->json(['error' => 'You cannot link yourself.'], 400);
-        }
-        
+
+        // if ($user->id === $linkedUser->id) {
+        //     return response()->json(['error' => 'You cannot link yourself.'], 400);
+        // } Reescribir
+
         if ($user->linkedAccounts()->count() >= 5) {
             return response()->json(['error' => 'You have reached the maximum number of linked accounts.'], 400);
         }
-        // dd($linkedUser);
 
 
         // Create the relationship between the users
@@ -63,6 +63,9 @@ class LinkedAccountController extends Controller
                 'linked_account_id' => $user->id,
             ]);
         }
+
+        // Copy the user data to the linked user except for the password and email
+        $user->update($linkedUser->only('name', 'lastname', 'email', 'phone', 'document_type', 'document_number', 'birth_date'));
 
         return response()->json(['success' => 'Account linked successfully.']);
     }
@@ -91,7 +94,7 @@ class LinkedAccountController extends Controller
      * Display all user linked in the user account.
      */
 
-    // public function show(): 
+    // public function show():
     // {
     //    //
     // }

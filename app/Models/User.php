@@ -15,17 +15,23 @@ class User extends Authenticatable
     use HasFactory;
 
     protected $fillable = [
-        'name',
-        'lastname',
+        'username',
         'password',
-        'phone',
+        'email',
         'role',
         'status',
-        'rank_id',
-        'email',
         'balance_points',
-        'parent_id',
         'kyc_status',
+        'name',
+        'lastname',
+        'gender',
+        'phone',
+        'document_type',
+        'document_number',
+        'birth_date',
+        'rank_id',
+        'next_rank_id',
+        'parent_id',
     ];
 
     protected $hidden = [
@@ -79,5 +85,10 @@ class User extends Authenticatable
     public function nextRank(): BelongsTo
     {
         return $this->belongsTo(Ranks::class, 'next_rank_id');
+    }
+
+    public function referralLink(): string
+    {
+        return route('register', ['ref' => $this->username]);
     }
 }

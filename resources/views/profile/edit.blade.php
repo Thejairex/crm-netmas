@@ -20,8 +20,8 @@
                 </div>
             </div>
 
-            @can('CompletedKYC')
-                <div>
+            @can('CompletedKYC', Auth::user())
+                <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                     <!-- Vincular cuenta -->
                     <div class="max-w-xl">
                         @include('profile.partials.link-account-form')

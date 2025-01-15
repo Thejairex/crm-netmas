@@ -13,8 +13,9 @@ class RanksSeeder extends Seeder
      */
     public function run(): void
     {
-        Ranks::create(['name' => 'Beginner', 'description' => 'Inicio del camino', 'min_points' => 0, 'max_points' => 100]);
-        Ranks::create(['name' => 'Intermediate', 'description' => 'Nivel intermedio', 'min_points' => 101, 'max_points' => 500]);
-        Ranks::create(['name' => 'Expert', 'description' => 'Maestro del camino', 'min_points' => 501, 'max_points' => 1000]);
+        Ranks::create(['name' => 'Guest', 'description' => 'Invitado', 'points_required' => 0]);
+        Ranks::create(['name' => 'Beginner', 'description' => 'Inicio del camino', 'points_required' => 1000]);
+        Ranks::create(['name' => 'Intermediate', 'description' => 'Nivel intermedio', 'points_required' => 2500]);
+        Ranks::create(['name' => 'Expert', 'description' => 'Maestro del camino', 'points_required' => 4000]);
     }
 }

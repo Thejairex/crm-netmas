@@ -13,7 +13,9 @@
                         <thead>
                             <tr>
                                 <th class="px-4 py-2">Nombre</th>
-                                <th class="px-4 py-2">Email</th>
+                                <th class="px-4 py-2">Apellido</th>
+                                <th class="px-4 py-2">Genero</th>
+                                <th class="px-4 py-2">Phone</th>
                                 <th class="px-4 py-2">Documento</th>
                                 <th class="px-4 py-2">Estado</th>
                                 <th class="px-4 py-2">Acciones</th>
@@ -22,26 +24,14 @@
                         <tbody>
                             @foreach ($kycs as $kyc)
                                 <tr>
-                                    <td class="px-4 py-2">{{ $kyc->user->name }}</td>
-                                    <td class="px-4 py-2">{{ $kyc->user->email }}</td>
+                                    <td class="px-4 py-2">{{ $kyc->name }}</td>
+                                    <td class="px-4 py-2">{{ $kyc->lastname }}</td>
+                                    <td class="px-4 py-2">{{ $kyc->gender }}</td>
+                                    <td class="px-4 py-2">{{ $kyc->phone }}</td>
                                     <td class="px-4 py-2">{{ $kyc->document_type }} {{ $kyc->document_number }}</td>
                                     <td class="px-4 py-2">{{ $kyc->status }}</td>
                                     <td class="px-4 py-2">
                                         <a href="{{ route('kyc.show', $kyc->id) }}" class="text-blue-500 hover:text-blue-700">Ver</a>
-                                        <form action="{{ route('kyc.update', $kyc->id) }}" method="POST" class="inline">
-                                            @csrf
-                                            @method('PATCH')
-                                            <input type="hidden" name="status" value="approved">
-                                            <button type="submit" class="text-green-500 hover:text-green-700">Aceptar</button>
-                                        </form>
-
-                                        <form action="{{ route('kyc.update', $kyc->id) }}" method="POST" class="inline">
-                                            @csrf
-                                            @method('PATCH')
-                                            <input type="hidden" name="status" value="rejected">
-                                            <button type="submit" class="text-red-500 hover:text-red-700">Rechazar</button>
-                                        </form>
-
                                         <form action="{{ route('kyc.destroy', $kyc->id) }}" method="POST" class="inline">
                                             @csrf
                                             @method('DELETE')

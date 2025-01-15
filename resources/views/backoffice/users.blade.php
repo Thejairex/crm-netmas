@@ -19,11 +19,13 @@
                         <thead>
                             <tr>
                                 <th class="px-4 py-2">ID</th>
+                                <th class="px-4 py-2">Username</th>
                                 <th class="px-4 py-2">Name</th>
                                 <th class="px-4 py-2">Lastname</th>
                                 <th class="px-4 py-2">Email</th>
                                 <th class="px-4 py-2">Role</th>
                                 <th class="px-4 py-2">Parent User</th>
+                                <th class="px-4 py-2">Rank</th>
                                 <th class="px-4 py-2">Actions</th>
                             </tr>
                         </thead>
@@ -31,11 +33,13 @@
                             @foreach ($users as $user)
                             <tr>
                                 <td class="border px-4 py-2">{{ $user->id }}</td>
+                                <td class="border px-4 py-2">{{ $user->username }}</td>
                                 <td class="border px-4 py-2">{{ $user->name }}</td>
                                 <td class="border px-4 py-2">{{ $user->lastname }}</td>
                                 <td class="border px-4 py-2">{{ $user->email }}</td>
                                 <td class="border px-4 py-2">{{ $user->role }}</td>
                                 <td class="border px-4 py-2">{{ $user->parent ? $user->parent->name : 'Principal' }}</td>
+                                <td class="border px-4 py-2">{{ $user->rank ? $user->rank->name : 'N/A' }}</td>
                                 <td class="border px-4 py-2">
                                     <a href="{{ route('backoffice.users.edit', $user) }}" class="text-blue-500 hover:text-blue-700">Edit</a>
                                     <form action="{{ route('backoffice.users.destroy', $user) }}" method="POST" class="inline">

@@ -14,10 +14,15 @@ return new class extends Migration
         Schema::create('kyc_entries', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
+            // Información personal
+            $table->string('name');
+            $table->string('lastname');
+            $table->string('gender');
+            $table->string('phone');
             $table->string('document_type');
-            $table->string('document_number')->unique();
-            $table->string('document_image'); // Puede ser una ruta a la imagen
-            $table->string('selfie_image')->nullable(); // Imagen opcional
+            $table->string('document_number');
+            $table->string('document_image'); // url image
+            $table->date('birth_date');
             $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
             $table->timestamp('verified_at')->nullable();
             $table->unsignedBigInteger('verified_by')->nullable(); // Puede ser el id del administrador

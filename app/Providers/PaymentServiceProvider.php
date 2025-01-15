@@ -21,10 +21,6 @@ class PaymentServiceProvider extends ServiceProvider
         $this->app->singleton(PointsService::class, function () {
             return new PointsService();
         });
-
-        $this->app->singleton(PurchaseService::class, function () {
-            return new PurchaseService();
-        });
     }
 
     /**

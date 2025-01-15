@@ -6,11 +6,12 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class InputFile extends Component
+class inputDate extends Component
 {
-    public $id;
-    public $name;
-
+    public $id, $name;
+    /**
+     * Create a new component instance.
+     */
     public function __construct($id, $name)
     {
         $this->id = $id;
@@ -23,6 +24,6 @@ class InputFile extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.input-file');
+        return view('components.input-date');
     }
 }

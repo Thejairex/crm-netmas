@@ -68,10 +68,10 @@ class UserPolicy
         return $user->role === 'admin';
     }
 
-    public function CompletedKYC(User $authUser)
+    public function CompletedKYC(User $user)
     {
         // Verificar si el usuario tiene un KYC aprobado.
-        return $authUser->kycEntry && $authUser->kycEntry->status === 'verified';
+        return $user->isVerified();
     }
 
     /**
@@ -83,9 +83,8 @@ class UserPolicy
         return $authUser->linkedAccounts()->count() < 5;
     }
 
-    public function ranked(User $authUser)
-    {
-        // Verificar si el usuario tiene un rank.
-        return $authUser->rank;
+    public function supplier(User $user) {
+        return $user->role === 'supplier' || $user->role === 'admin';
     }
+
 }

@@ -17,10 +17,11 @@ class UsersSeeder extends Seeder
         $fistUser = User::create([
             'name' => 'Admin',
             'lastname' => 'User',
+            'username' => 'adminUser',
             'email' => 'admin@example.com',
             'password' => 'password123', // password
             'role' => 'admin',
-            
+
         ]);
 
         $fistUser;
@@ -28,25 +29,29 @@ class UsersSeeder extends Seeder
             [
                 'name' => 'Test1',
                 'lastname' => 'User',
+                'username' => 'Test1User',
                 'email' => 'user1@example.com',
                 'password' => 'test12345', // Contraseña: password123
-                'role' => 'admin',
+                'role' => 'customer',
                 'parent_id' => $fistUser->id,
             ],
             [
                 'name' => 'Test2',
                 'lastname' => 'User',
+                'username' => 'Test2User',
                 'email' => 'user2@example.com',
                 'password' => 'mypassword', // Contraseña: password123
-                'role' => 'admin',
+                'role' => 'customer',
                 'parent_id' => $fistUser->id,
             ],
             [
                 'name' => 'Test3',
-                'lastname' => 'User',
+                'lastname' => 'Supplier',
+                'username' => 'Test3Supplier',
                 'email' => 'user3@example.com',
                 'password' => 'test12345', // Contraseña: password123
-                'role' => 'admin',
+                'role' => 'supplier',
+                'rank_id' => 2,
                 'parent_id' => $fistUser->id,
             ],
         ];

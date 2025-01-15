@@ -1,66 +1,52 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+## Tareas por Hacer
+- [ ] Agregar un sistema de ranking requerido por el equipo para lograr el objetivo.
+  - [ ] Agregar un sistema de puntos requerido por el equipo para lograr el objetivo.
+  - [ ] Agregar un sistema de ranking requerido por el equipo para lograr el objetivo.
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+- [ ] Crear dashboard general. (A la espera de la API)
+  - [ ] Crear dashboard Personal.
+    - [ ] Panel de estadísticas y estados.
+    - [ ] Panel de retiros con calculadora.
+    - [ ] Panel de mi network.
+  - [ ] Crear dashboard de equipo.
+    - [ ] Panel de estadísticas y estados.
+    - [ ] Panel de objetivos para el siguiente rango.
 
-## About Laravel
+- [ ] Implementar Slave/Worker al backend.
+  - [ ] Implementar un worker para comprobar los pagos.
+  - [ ] Implementar un worker para comprobar los el estado de la cuenta.
+  - [ ] Implementar un worker para comprobar los retiros mensuales segun el rango.
+  - [ ] Implementar un worker para comprobar las actualizaciones del ranking.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- [ ] Implementar un sistema de notificaciones.
+  - [ ] Implementar un sistema de notificaciones por email.
+  - [ ] Implementar un sistema de notificaciones por push.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- [ ] Implementar un sistema de cartera ( MercadoPago o wallet).
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- [ ] Implementar un sistema de retiros mensuales.
 
-## Learning Laravel
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## Cambios por hacer
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
 
-## Laravel Sponsors
+- [ ] Cambiar el sistema de roles a un sistema de permisos.
+  - [ ] Agregar un booleano que indique si el usuario es proveedor en ves de un rol.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+- [ ] Cambiar el sistema de productos a un sistema de marketplace.
+  - [ ] Agregar un sistema de catalogo de productos.
+  - [ ] Agregar un sistema de carrito.
+  - [ ] Agregar un sistema de busqueda de productos.
 
-### Premium Partners
+## Mejoras por hacer
+- [x] Mejorar la gestión de cuentas vinculadas.
+- [x] Mejorar la gestión de solicitudes de verificación de identidad (KYC).
+- [ ] Mejorar la seguridad de accesos a la plataforma.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+## Trabajo de hoy
+- [x] Cambiar el sistema de registro a un sistema de invitación por referencias de un usuario o registrar mediante el backoffice.
+  - [x] El usuario debera estar en un ranking base por registrarse pero no vale nada.
 
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+  - [ ] Al comprar la membresia de distribuidor el usuario pasa al ranking de distribuidor.
+  - [ ] Los Administradores seran los principales del network por lo que no compiten en el ranking.

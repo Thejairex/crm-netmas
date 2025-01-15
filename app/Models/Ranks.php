@@ -11,12 +11,12 @@ class Ranks extends Model
     protected $fillable = [
         'name',
         'description',
-        'min_points',
-        'max_points',
+        'points_required',
     ];
 
     public function users(): BelongsToMany
     {
         return $this->belongsToMany(User::class);
     }
+
 }

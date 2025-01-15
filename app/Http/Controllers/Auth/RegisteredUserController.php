@@ -18,9 +18,10 @@ class RegisteredUserController extends Controller
     /**
      * Display the registration view.
      */
-    public function create(): View
+    public function create($ref): View
     {
-        return view('auth.register');
+        // dd($ref);
+        return view('auth.register', ['ref' => $ref]);
     }
 
     /**
@@ -31,29 +32,32 @@ class RegisteredUserController extends Controller
     public function store(Request $request): RedirectResponse
      {
          $validator = Validator::make($request->all(), [
-             'name' => 'required|string|max:255',
-             'lastname' => 'required|string|max:255',
+             'username' => 'required|string|max:255|unique:users',
              'email' => 'required|string|email|max:255|unique:users',
              'password' => 'required|string|min:8|confirmed',
-             'role' => 'required|string|in:customer,supplier,admin',
+             'referralUser' => 'required|string|exists:users,username',
          ]);
- 
+
          if ($validator->fails()) {
              return redirect()->back()->withErrors($validator)->withInput();
          }
- 
+         $referredUser = User::where('username', $request->referralUser)->first();
+
+         if (!$referredUser) {
+             return redirect()->back()->withErrors(['referralUser' => 'Invalid referral user.'])->withInput();
+         }
+
          $user = User::create([
-             'name' => $request->name,
-             'lastname' => $request->lastname,
+             'username' => $request->username,
              'email' => $request->email,
              'password' => $request->password,
-             'role' => $request->role,
+             'parent_id' => $referredUser->id
          ]);
- 
+
          event(new Registered($user));
- 
+
          Auth::login($user);
- 
+
          return redirect()->route("dashboard");
      }
 }

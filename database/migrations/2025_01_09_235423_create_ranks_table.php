@@ -15,10 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->text('description');
-            $table->unsignedInteger('min_points'); // minimo personal
-            $table->unsignedInteger('max_points'); // maximo personal
-            //$table->unsignedInteger('min_team_points'); // minimo equipo
-            //$table->unsignedInteger('max_team_points'); // maximo equipo
+            $table->unsignedInteger('points_required'); // puntos requeridos
+            
 
             // Agregar un sistema de ranking requerido por el equipo para lograr el objetivo
 

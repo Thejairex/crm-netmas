@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Events\PointsUpdated;
 use App\Models\Purchase;
 
 class PointsService
@@ -47,9 +48,10 @@ class PointsService
     {
         $user = $purchase->user;
         $points = $user->balance_points;
-        $amount = $purchase->product->price;
+        $amount = $purchase->product->calculateTotalPrice();
 
         $user->balance_points = $points + $amount;
         $user->save();
+        event(new PointsUpdated($user));
     }
 }

@@ -40,15 +40,23 @@ class ProcessMercadoPagoPayment
             $payment = $this->mercadoPagoService->getPaymentById($paymentId);
 
             $purchase = Purchase::where('external_reference', $payment->external_reference)->first();
-            $purchase->status = $payment->status;
-            $purchase->save();
+            if ($purchase) {
+                $purchase->status = $payment->status;
+                $purchase->save();
+            } else {
+                Log::info("No hay un pago pendiente");
+                return;
+            }
 
-            // Si estamos en local, obtenemos el último pago pendiente y actualizamos el estado
+        // Si estamos en local, obtenemos el último pago pendiente y actualizamos el estado
         } else {
             $purchase = Purchase::latest()->first();
-            if ($purchase->status == 'pending') {
+            if ($purchase && $purchase->status == 'pending') {
                 $purchase->status = 'approved';
                 $purchase->save();
+            } else {
+                Log::info("No hay un pago pendiente");
+                return;
             }
         }
 

@@ -22,11 +22,13 @@ class PurchaseService
         $user = $purchase->user;
         $product = $purchase->product;
         $this->commissionService->assingComission($purchase);
-        $this->pointsService->earnPoints($purchase);
 
-        if ($product->category->name == 'Supplier Packages') {
+        if ($product->payment_method != 'points') {
+            $this->pointsService->earnPoints($purchase);
+        }
+        if ($product->category->is_supplier_pack && $user->role == 'customer') {
             $user->role = 'supplier';
-            $user->rank_id = 1;
+            $user->
             $user->save();
         }
     }
