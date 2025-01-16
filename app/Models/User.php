@@ -35,6 +35,7 @@ class User extends Authenticatable
     ];
 
     protected $hidden = [
+        'document_number',
         'password',
         'remember_token',
     ];
@@ -47,7 +48,7 @@ class User extends Authenticatable
     // En el modelo User
     public function linkedAccounts()
     {
-        return $this->belongsToMany(User::class, 'linked_accounts', 'user_id', 'linked_user_id');
+        return $this->belongsToMany(User::class, 'linked_accounts', 'user_id', 'linked_account_id');
     }
 
     public function setPasswordAttribute($value) {

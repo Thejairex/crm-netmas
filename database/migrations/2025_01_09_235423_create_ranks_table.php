@@ -16,8 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->text('description');
             $table->unsignedInteger('points_required'); // puntos requeridos
-            
-
+            $table->unsignedInteger('next_rank_id')->nullable();
             // Agregar un sistema de ranking requerido por el equipo para lograr el objetivo
 
             $table->timestamps();

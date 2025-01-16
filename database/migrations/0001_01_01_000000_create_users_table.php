@@ -33,7 +33,6 @@ return new class extends Migration
 
             // Relationships
             $table->unsignedBigInteger('rank_id')->default(1);
-            $table->unsignedBigInteger('next_rank_id')->default(2)->nullable();
             $table->unsignedBigInteger('parent_id')->nullable(); // User who referred this user
             $table->rememberToken();
             $table->timestamps();
@@ -41,7 +40,7 @@ return new class extends Migration
             // Foreign key constraints
             $table->foreign('parent_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('rank_id')->references('id')->on('ranks')->onDelete('set null');
-            $table->foreign('next_rank_id')->references('id')->on('ranks')->onDelete('set null');
+
         });
 
 

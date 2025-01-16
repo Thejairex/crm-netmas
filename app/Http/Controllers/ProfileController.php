@@ -21,8 +21,7 @@ class ProfileController extends Controller
             $linkedAccounts = LinkedAccount::where('user_id', $request->user()->id)->get();
             $users = $linkedAccounts->pluck('linkedUser')->unique()->map(function ($user) {
                 return [
-                    'name' => $user->name,
-                    'lastname' => $user->lastname,
+                    'username' => $user->username,
                     'email' => $user->email,
                 ];
             });

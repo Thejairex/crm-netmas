@@ -14,7 +14,7 @@
                 <div class="flex flex-col md:flex-row md:justify-between">
                     <div class="mb-4 md:mb-0">
                         <p class="text-lg font-semibold">{{ __('Welcome,') }} {{ auth()->user()->username }}!</p>
-                        @can('ranked', auth()->user())
+                        @can('supplier', auth()->user())
 
                             @if (auth()->user()->rank)
                                 <p class="text-sm">

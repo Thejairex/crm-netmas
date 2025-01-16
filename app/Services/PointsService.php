@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Events\PointsUpdated;
 use App\Models\Purchase;
+use Illuminate\Support\Facades\Log;
 
 class PointsService
 {
@@ -52,6 +53,9 @@ class PointsService
 
         $user->balance_points = $points + $amount;
         $user->save();
-        event(new PointsUpdated($user));
+        if ($user->role !== 'customer') {
+            Log::info("Points earned for supplier");
+            event(new PointsUpdated($user));
+        }
     }
 }

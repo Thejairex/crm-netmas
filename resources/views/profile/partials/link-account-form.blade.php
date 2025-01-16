@@ -24,7 +24,7 @@
                 @foreach ($linkedAccounts as $linkedAccount)
                     <div class="mt-6">
                         <p class="text-sm text-gray-600">
-                            {{ $linkedAccount['name'] }} {{ $linkedAccount['lastname'] }}
+                            {{ $linkedAccount['username'] }}
                         </p>
 
                         <p class="text-sm text-gray-600">

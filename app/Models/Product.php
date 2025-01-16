@@ -12,10 +12,10 @@ class Product extends Model
         'name',
         'description',
         'image',
-        'category_id',
-        'is_supplier_pack',
         'price',
         'discount',
+        'is_supplier_pack',
+        'category_id',
     ];
 
     public function calculateTotalPrice()

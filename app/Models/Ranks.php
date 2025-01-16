@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Ranks extends Model
@@ -12,6 +13,7 @@ class Ranks extends Model
         'name',
         'description',
         'points_required',
+        'next_rank_id',
     ];
 
     public function users(): BelongsToMany
@@ -19,4 +21,8 @@ class Ranks extends Model
         return $this->belongsToMany(User::class);
     }
 
+    public function nextRank(): BelongsTo
+    {
+        return $this->belongsTo(Ranks::class, 'next_rank_id');
+    }
 }

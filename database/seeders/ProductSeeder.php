@@ -18,71 +18,64 @@ class ProductSeeder extends Seeder
                 'name' => 'Producto A',
                 'description' => 'Este es un producto de ejemplo A. Es útil para todo tipo de tareas diarias.',
                 'image' => 'product_a.jpg',
-                'price' => 199.99,
-                'discount' => 10.00,  // 10% de descuento
                 'category_id' => 1,
-                'created_at' => now(),
-                'updated_at' => now(),
+                'is_supplier_pack' => false,
+                'price' => 199.99,
+                'discount' => 10,
             ],
             [
                 'name' => 'Producto B',
                 'description' => 'Producto B es ideal para mejorar la productividad en la oficina. Alta calidad.',
                 'image' => 'product_b.jpg',
-                'price' => 350.50,
-                'discount' => 20.00,  // 20% de descuento
                 'category_id' => 1,
-                'created_at' => now(),
-                'updated_at' => now(),
+                'is_supplier_pack' => false,
+                'price' => 350.50,
+                'discount' => 20,
             ],
             [
                 'name' => 'Producto C',
                 'description' => 'Una herramienta avanzada para desarrolladores, con múltiples funcionalidades.',
                 'image' => 'product_c.jpg',
-                'price' => 499.99,
-                'discount' => null,  // Sin descuento
                 'category_id' => 2,
-                'created_at' => now(),
-                'updated_at' => now(),
+                'is_supplier_pack' => false,
+                'price' => 499.99,
+                'discount' => null, // Valor faltante manejado como null
             ],
             [
                 'name' => 'Producto D',
                 'description' => 'El producto D es una opción económica para tareas básicas de oficina.',
                 'image' => 'product_d.jpg',
-                'price' => 99.99,
-                'discount' => 5.00,  // 5% de descuento
                 'category_id' => 1,
-                'created_at' => now(),
-                'updated_at' => now(),
+                'is_supplier_pack' => false,
+                'price' => 99.99,
+                'discount' => 5,
             ],
             [
                 'name' => 'Producto E',
                 'description' => 'Producto premium con excelentes características, ideal para entusiastas.',
                 'image' => 'product_e.jpg',
-                'price' => 799.99,
-                'discount' => 15.00,  // 15% de descuento
                 'category_id' => 2,
-                'created_at' => now(),
-                'updated_at' => now(),
+                'is_supplier_pack' => false,
+                'price' => 799.99,
+                'discount' => 15,
             ],
             [
                 'name' => 'Producto F',
                 'description' => 'El producto F es una herramienta de alto rendimiento para desarrolladores.',
                 'image' => 'product_f.jpg',
-                'price' => 19.99,
-                'discount' => null,  // Sin descuento
                 'category_id' => 2,
-                'created_at' => now(),
-                'updated_at' => now(),
+                'is_supplier_pack' => false,
+                'price' => 19.99,
+                'discount' => null, // Valor faltante manejado como null
             ],
             [
                 'name' => 'Basic Supplier Package',
                 'description' => 'Paquete de proveedor.',
                 'image' => 'supplier_package.jpg',
-                'price' => 149.99,
-                'discount' => null,  // Sin descuento
                 'category_id' => 3,
-                'created_at' => now(),
-                'updated_at' => now(),
+                'is_supplier_pack' => true,
+                'price' => 149.99,
+                'discount' => null, // Valor faltante manejado como null
             ],
         ];
 

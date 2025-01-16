@@ -2,18 +2,22 @@
 
 namespace App\Services;
 
+use Illuminate\Support\Facades\Log;
+
 class PurchaseService
 {
     /**
      * Create a new class instance.
      */
-    protected $commissionService, $pointsService;
+    protected $commissionService, $pointsService, $rankService;
     public function __construct(
         CommissionService $commissionService,
         PointsService $pointsService,
+        RankService $rankService
     ) {
         $this->commissionService = $commissionService;
         $this->pointsService = $pointsService;
+        $this->rankService = $rankService;
     }
 
 
@@ -22,14 +26,16 @@ class PurchaseService
         $user = $purchase->user;
         $product = $purchase->product;
         $this->commissionService->assingComission($purchase);
-
+        Log::info("Commission assigned");
         if ($product->payment_method != 'points') {
             $this->pointsService->earnPoints($purchase);
+            Log::info("Points earned");
         }
-        if ($product->category->is_supplier_pack && $user->role == 'customer') {
-            $user->role = 'supplier';
-            $user->
-            $user->save();
+
+        if ($product->is_supplier_pack && $user->role != 'supplier') {
+            Log::info("Starting supplier rank");
+            $this->rankService->startUserRank($user);
+            Log::info("Supplier rank started");
         }
     }
 

@@ -23,6 +23,11 @@
                                 <th class="px-4 py-2">Name</th>
                                 <th class="px-4 py-2">Lastname</th>
                                 <th class="px-4 py-2">Email</th>
+                                <th class="px-4 py-2">Estado de la cuenta</th>
+                                <th class="px-4 py-2">Genero</th>
+                                <th class="px-4 py-2">Fecha de Nacimiento</th>
+                                <th class="px-4 py-2">Telefono</th>
+                                <th class="px-4 py-2">Documento</th>
                                 <th class="px-4 py-2">Role</th>
                                 <th class="px-4 py-2">Parent User</th>
                                 <th class="px-4 py-2">Rank</th>
@@ -34,9 +39,14 @@
                             <tr>
                                 <td class="border px-4 py-2">{{ $user->id }}</td>
                                 <td class="border px-4 py-2">{{ $user->username }}</td>
-                                <td class="border px-4 py-2">{{ $user->name }}</td>
-                                <td class="border px-4 py-2">{{ $user->lastname }}</td>
+                                <td class="border px-4 py-2">{{ $user->name ? $user->name : 'N/A' }}</td>
+                                <td class="border px-4 py-2">{{ $user->lastname ? $user->lastname : 'N/A' }}</td>
                                 <td class="border px-4 py-2">{{ $user->email }}</td>
+                                <td class="border px-4 py-2">{{ $user->status }}</td>
+                                <td class="border px-4 py-2">{{ $user->gender ? $user->gender : 'N/A' }}</td>
+                                <td class="border px-4 py-2">{{ $user->birthdate ? $user->birthdate : 'N/A' }}</td>
+                                <td class="border px-4 py-2">{{ $user->phone ? $user->phone : 'N/A' }}</td>
+                                <td class="border px-4 py-2">{{ $user->document_type ? $user->document_type : 'N/A' }} ({{ $user->document_number ? $user->document_number : 'N/A' }})</td>
                                 <td class="border px-4 py-2">{{ $user->role }}</td>
                                 <td class="border px-4 py-2">{{ $user->parent ? $user->parent->name : 'Principal' }}</td>
                                 <td class="border px-4 py-2">{{ $user->rank ? $user->rank->name : 'N/A' }}</td>

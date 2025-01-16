@@ -11,7 +11,6 @@ class MercadoPagoController extends Controller
     public function webhook(Request $request)
     {
         $data = $request->all();
-        Log::info($data);
 
         $eventType = $data['action'];
         if ($eventType == 'payment.created' || $eventType == 'payment.updated')  {

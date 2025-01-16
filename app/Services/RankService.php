@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Ranks;
 use App\Models\User;
+use Log;
 
 class RankService
 {
@@ -14,15 +15,26 @@ class RankService
     {
 
     }
+    public function updateUserRank(User $user)
+    {
+        $nextRank = $user->rank->nextRank;
 
-    public function updateUserRank(User $user) {
-        $points = $user->balance_points;
-        $rank = Ranks::where('min_points', '<=', $points)
-                ->where('max_points', '>=', $points)
-                ->first();
+        if ($user->points >= $nextRank->points) {
+            $user->rank()->associate($nextRank);
+            $user->save();
+        }
 
-        $user->rank()->associate($rank);
+    }
+
+    public function startUserRank(User $user)
+    {
+        if ($user->role !== 'admin') {
+            Log::info("Starting supplier rank for customer");
+            $user->role = 'supplier';
+        }
+
+        $nextRank = $user->rank->nextRank;
+        $user->rank()->associate($nextRank);
         $user->save();
-
     }
 }

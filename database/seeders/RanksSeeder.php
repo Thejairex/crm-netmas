@@ -13,9 +13,23 @@ class RanksSeeder extends Seeder
      */
     public function run(): void
     {
-        Ranks::create(['name' => 'Guest', 'description' => 'Invitado', 'points_required' => 0]);
-        Ranks::create(['name' => 'Beginner', 'description' => 'Inicio del camino', 'points_required' => 1000]);
-        Ranks::create(['name' => 'Intermediate', 'description' => 'Nivel intermedio', 'points_required' => 2500]);
-        Ranks::create(['name' => 'Expert', 'description' => 'Maestro del camino', 'points_required' => 4000]);
+        $ranks = [
+            ['name' => 'Guest', 'description' => 'Invitado', 'points_required' => 0],
+            ['name' => 'Novice', 'description' => 'Principiante', 'points_required' => 0],
+            ['name' => 'Beginner', 'description' => 'Inicio del camino', 'points_required' => 1000],
+            ['name' => 'Intermediate', 'description' => 'Nivel intermedio', 'points_required' => 2500],
+            ['name' => 'Expert', 'description' => 'Maestro del camino', 'points_required' => 4000],
+        ];
+
+        $prevRank = null;
+
+        foreach ($ranks as $rank) {
+            $newRank = Ranks::create($rank);
+            if ($prevRank) {
+                $prevRank->next_rank_id = $newRank->id;
+                $prevRank->save();
+            }
+            $prevRank = $newRank;
+        }
     }
 }

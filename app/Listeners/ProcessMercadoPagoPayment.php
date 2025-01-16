@@ -31,7 +31,6 @@ class ProcessMercadoPagoPayment
      */
     public function handle(MercadoPagoPaymentUpdated $event): void
     {
-        Log::info("LLego al listener");
 
         $paymentId = $event->paymentData['data']['id'];
 
