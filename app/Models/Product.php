@@ -18,7 +18,7 @@ class Product extends Model
         'category_id',
     ];
 
-    public function calculateTotalPrice()
+    public function getTotalPrice()
     {
         return $this->price - ($this->price * ($this->discount / 100));
     }

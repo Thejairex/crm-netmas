@@ -29,7 +29,7 @@ class ProductController extends Controller
             'discount' => 'nullable|numeric|min:0|max:100',
         ]);
 
-        $product = Product::create($request->all());
+        $product = Product::create($request->all() );
 
 
         if ($request->hasFile('image')) {
@@ -39,7 +39,7 @@ class ProductController extends Controller
             $product->image = $imageName;
             $product->save();
         }
-        return redirect()->route('products.index')->with('success', 'Product created successfully.');
+        return redirect()->route('backoffice.products.index')->with('success', 'Product created successfully.');
 
     }
 
@@ -70,13 +70,13 @@ class ProductController extends Controller
             $product->save();
         }
 
-        return redirect()->route('products.index');
+        return redirect()->route('backoffice.products.index');
     }
 
     public function destroy($id)
     {
         Product::findOrFail($id)->delete();
-        return redirect()->route('products.index')->with('success', 'Product deleted successfully.');
+        return redirect()->route('backoffice.products.index')->with('success', 'Product deleted successfully.');
     }
 
     public function show($id)
@@ -84,3 +84,4 @@ class ProductController extends Controller
         return view('products.show', ['product' => Product::findOrFail($id)]);
     }
 }
+

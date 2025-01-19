@@ -88,13 +88,17 @@ class User extends Authenticatable
         return $this->belongsTo(Ranks::class);
     }
 
-    public function nextRank(): BelongsTo
-    {
-        return $this->belongsTo(Ranks::class, 'next_rank_id');
+    public function cart() {
+        return $this->hasOne(Cart::class);
     }
 
     public function referralLink(): string
     {
         return route('register', ['ref' => $this->username]);
+    }
+
+    public function purchases(): HasMany
+    {
+        return $this->hasMany(Purchase::class);
     }
 }

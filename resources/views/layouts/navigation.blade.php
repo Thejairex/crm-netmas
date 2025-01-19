@@ -17,8 +17,8 @@
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('products.index')" :active="request()->routeIs('products.index')">
-                        {{ __('Products') }}
+                    <x-nav-link :href="route('marketplace.index')" :active="request()->routeIs('marketplace.index')">
+                        {{ __('Marketplace') }}
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
@@ -42,6 +42,11 @@
                 </div>
                 @endif
 
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('cart.index')" :active="request()->routeIs('cart.index')">
+                        {{ __('Cart') }}
+                    </x-nav-link>
+                </div>
 
             </div>
             <!-- Balances -->

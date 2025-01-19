@@ -83,6 +83,6 @@ class PurchaseController extends Controller
     {
         $purchase = Purchase::findOrFail($id);
         $purchase->delete();
-        return redirect()->route('purchases.index')->with('success', 'Purchase deleted successfully.');
+        return redirect()->route('backoffice.purchases.index')->with('success', 'Purchase deleted successfully.');
     }
 }

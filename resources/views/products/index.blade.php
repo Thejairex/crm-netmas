@@ -12,7 +12,7 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 @if (Auth::user()->isAdmin())
                     <div class="p-6 bg-white border-b border-gray-200">
-                        <a href="/products/create"
+                        <a href="{{ route('backoffice.products.create') }}"
                             class="mt-4 inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">
                             Create new product
                         </a>
@@ -37,12 +37,12 @@
                                     <td class="border px-4 py-2">{{ $product->price }}</td>
                                     <td class="border px-4 py-2">{{ $product->discount }}</td>
                                     <td class="border px-4 py-2">
-                                        <a href="{{ route('purchases.create', $product) }}"
+                                        <a href="{{ route('backoffice.purchases.create', $product) }}"
                                             class="text-green-500 hover:text-green-700 underline">Buy</a>
                                         @if (Auth::user()->isAdmin())
-                                            <a href="{{ route('products.edit', $product) }}"
+                                            <a href="{{ route('backoffice.products.edit', $product) }}"
                                                 class="text-blue-500 hover:text-blue-700 underline">Edit</a>
-                                            <form action="{{ route('products.destroy', $product) }}" method="POST"
+                                            <form action="{{ route('backoffice.products.destroy', $product) }}" method="POST"
                                                 style="display: inline;">
                                                 @csrf
                                                 @method('DELETE')

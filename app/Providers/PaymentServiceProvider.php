@@ -2,9 +2,8 @@
 
 namespace App\Providers;
 
-use App\Services\MercadoPagoService;
-use App\Services\PointsService;
-use App\Services\PurchaseService;
+use App\Services\Payment\PaymentService;
+use App\Services\Payment\PaymentMethodResolver;
 use Illuminate\Support\ServiceProvider;
 
 class PaymentServiceProvider extends ServiceProvider
@@ -14,12 +13,14 @@ class PaymentServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->singleton(MercadoPagoService::class, function () {
-            return new MercadoPagoService();
+        // Registrar el resolver de métodos de pago
+        $this->app->singleton(PaymentMethodResolver::class, function ($app) {
+            return new PaymentMethodResolver(); // Resolver para gestionar todos los métodos de pago
         });
 
-        $this->app->singleton(PointsService::class, function () {
-            return new PointsService();
+        // Registrar el servicio de pagos
+        $this->app->singleton(PaymentService::class, function ($app) {
+            return new PaymentService($app->make(PaymentMethodResolver::class));
         });
     }
 

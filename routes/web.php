@@ -1,9 +1,11 @@
 <?php
 
 use App\Http\Controllers\BackOfficeController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\EducationalResourceController;
 use App\Http\Controllers\ImeiValidationController;
 use App\Http\Controllers\KYCController;
+use App\Http\Controllers\MarketplaceController;
 use App\Http\Controllers\MercadoPagoController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController;
@@ -22,15 +24,14 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 
-// Product routes
-Route::middleware('auth')->group(function () {
-    Route::get('/products', [ProductController::class, 'index'])->name('products.index');
-    Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
-    Route::get('/products/{id}/edit', [ProductController::class, 'edit'])->name('products.edit');
-
-    Route::get('/purchases', [PurchaseController::class, 'index'])->name('purchases.index');
-    Route::get('/purchases/create/{id}', [PurchaseController::class, 'create'])->name('purchases.create');
+// marketplace routes
+Route::prefix('marketplace')->middleware('auth')->name('marketplace.')->group(function () {
+    Route::get('/', [MarketplaceController::class, 'index'])->name('index');
+    Route::get('/{id}', [MarketplaceController::class, 'show'])->name('show');
 });
+
+// Cart routes
+Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 
 // Profile routes
 Route::middleware('auth')->group(function () {
@@ -42,27 +43,32 @@ Route::middleware('auth')->group(function () {
 });
 
 // Backoffice routes
-Route::middleware(['auth', 'admin'])->group(function () {
-    Route::get('/backoffice', [BackOfficeController::class, 'index'])->name('backoffice.index');
+Route::prefix('backoffice')->middleware(['auth', 'admin'])->name('backoffice.')->group(function () {
+    Route::get('/', [BackOfficeController::class, 'index'])->name('index');
 
     // Backoffice users
-    Route::get('/backoffice/users', [BackOfficeController::class, 'users'])->name('backoffice.users');
-    Route::get('/backoffice/users/new', [BackOfficeController::class, 'userCreate'])
-        ->name('backoffice.users.create');
-    Route::get('/backoffice/users/{id}', [BackOfficeController::class, 'userEdit'])->name('backoffice.users.edit');
+    Route::get('/users', [BackOfficeController::class, 'users'])->name('users');
+    Route::get('/users/new', [BackOfficeController::class, 'userCreate'])->name('users.create');
+    Route::get('/users/{id}', [BackOfficeController::class, 'userEdit'])->name('users.edit');
 
     // Backoffice purchases
-    Route::get('/backoffice/purchases', [PurchaseController::class, 'index'])->name('purchases.index');
+    Route::get('/purchases', [PurchaseController::class, 'index'])->name('purchases.index');
+    Route::get('/purchases/create}', [PurchaseController::class, 'create'])->name('purchases.create');
 
     // Backoffice KYC
-    Route::get('/backoffice/kyc', [KYCController::class, 'index'])->name('kyc.index'); // Route for listing KYC entries
-    Route::get('/backoffice/kyc/{id}', [KYCController::class, 'show'])->name('kyc.show'); // Route for showing a specific KYC entry
+    Route::get('/kyc', [KYCController::class, 'index'])->name('kyc.index'); // Route for listing KYC entries
+    Route::get('/kyc/{id}', [KYCController::class, 'show'])->name('kyc.show'); // Route for showing a specific KYC entry
 
     // Backoffice Supports
-    Route::get('/backoffice/support', [SupportTicketController::class, 'index'])->name('support.index');
+    Route::get('/support', [SupportTicketController::class, 'index'])->name('support.index');
+
+    // Product routes
+    Route::get('/products', [ProductController::class, 'index'])->name('products.index');
+    Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
+    Route::get('/products/{id}/edit', [ProductController::class, 'edit'])->name('products.edit');
 
     // Imei validation routes
-    Route::get('/backoffice/imei-validation', [ImeiValidationController::class, 'index'])->name('validation.index');
+    Route::get('/imei-validation', [ImeiValidationController::class, 'index'])->name('validation.index');
 });
 
 // User routes

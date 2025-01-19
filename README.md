@@ -13,30 +13,32 @@
     - [ ] Panel de objetivos para el siguiente rango.
 
 - [ ] Implementar un sistema de retiros mensuales.
-
+- [ ] Implementar registro de compras.
+- [ ] Investigar si hace falta las tabla de carrito.
 ## Cambios por hacer
-
-- [ ] Cambiar el sistema de productos a un sistema de marketplace.
-  - [ ] Agregar un sistema de carrito.
-  - [ ] Agregar un sistema de catalogo de productos.
-  - [ ] Agregar un sistema de busqueda de productos.
+- [ ] Cambiar el sistema de pago unico. 
+- [ ] Reorganizar los archivos para una mejor organización.
+- [ ] Reorganizar el backoffice para una mejor organización.
+- [ ] Comentar el codigo para una mejor organización.
 
 ## Mejoras por hacer
 - [ ] Mejorar la seguridad de accesos a la plataforma.
 - [ ] Mejorar la gestión de archivos y optimizar redundancia de codigo.
 
 ## Trabajo de hoy
-- [ ] Implementar un sistema de notificaciones por email.
-  - [ ] Implementar notificaciones de compra exitosa y compra fallida. 
-  - [ ] Implementar notificaciones de verificacion de KYC.
-  - [ ] Implementar notificaciones de tickets de soporte.
-  - [ ] Implementar notificaciones de conversion de distribuidor y su ascenso en el ranking.
-  - [ ] Probar el mail de "Compra Exitosa" y "Compra Fallida".
-  - [ ] Probar el mail de "Verificación de KYC".
-  - [ ] Probar el mail de "Conversion de Distribuidor".
-  - [ ] Probar el mail de "Ascenso de Distribuidor".
+
+- [ ] Cambiar el sistema de productos a un sistema de marketplace.
+  - [x] Agregar un sistema de carrito.
+  - [x] Agregar un sistema de catalogo de productos.
+  - [ ] Agregar un sistema de busqueda de productos.
 
 ## Trabajo terminado
+- [x] Implementar un sistema de notificaciones por email.
+  - [x] Implementar notificaciones de verificacion de KYC.
+  - [x] Implementar notificaciones de compra exitosa y compra fallida. 
+  - [x] Probar el mail de "Compra Exitosa" y "Compra Fallida".
+  - [x] Probar el mail de "Verificación de KYC".
+  - [ ] 
 - [x] Mejorar la gestión de cuentas vinculadas.
 - [x] Mejorar la gestión de solicitudes de verificación de identidad (KYC).
 - [x] Cambiar el sistema de registro a un sistema de invitación por referencias de un usuario o registrar mediante el backoffice.

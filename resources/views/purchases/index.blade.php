@@ -13,10 +13,13 @@
                         <thead>
                             <tr>
                                 <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Product
+                                    ID
                                 </th>
                                 <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Amount
+                                    Username
+                                </th>
+                                <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Total Amount
                                 </th>
                                 <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     Payment Method
@@ -34,10 +37,13 @@
                             @foreach ($purchases as $purchase)
                                 <tr>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        {{ $purchase->product->name }}
+                                        {{ $purchase->id }}
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        ${{ $purchase->amount }}
+                                        {{ $purchase->user->username }}
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        ${{ $purchase->total_amount }}
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         {{ ucfirst($purchase->payment_method) }}
@@ -49,7 +55,7 @@
                                         {{ $purchase->created_at->format('Y-m-d') }}
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <form action="{{ route('purchases.destroy', $purchase) }}" method="POST" class="inline">
+                                        <form action="{{ route('backoffice.purchases.destroy', $purchase->id) }}" method="POST" class="inline">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="text-red-500 hover:text-red-700">Delete</button>
@@ -64,4 +70,5 @@
         </div>
     </div>
 </x-app-layout>
+
 
