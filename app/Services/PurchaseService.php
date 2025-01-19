@@ -2,7 +2,9 @@
 
 namespace App\Services;
 
+use App\Mail\PurchaseSuccessfulMail;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 
 class PurchaseService
 {
@@ -37,6 +39,8 @@ class PurchaseService
             $this->rankService->startUserRank($user);
             Log::info("Supplier rank started");
         }
+
+        Mail::to($user->email)->send(new PurchaseSuccessfulMail($user, $purchase));
     }
 
     public function registerPurchase()

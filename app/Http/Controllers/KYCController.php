@@ -2,16 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\kycVerificationMail;
 use App\Models\KYC;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\View\View;
-use App\Models\User;
-use Redirect;
-use Response;
 
 class KYCController extends Controller
 {
@@ -83,6 +81,7 @@ class KYCController extends Controller
 
         $user->kyc_status = 'pending';
         $user->save();
+        Mail::to($user->email)->send(new kycVerificationMail($user));
         return redirect()->route('profile.edit')->with('success', 'KYC entry sent successfully.');
     }
 
@@ -112,11 +111,13 @@ class KYCController extends Controller
 
             $kyc->verified_at = now();
             $kyc->verified_by = Auth::user()->id;
+            Mail::to($user->email)->send(new kycVerificationMail($user));
 
         } elseif ($status === 'rejected') {
             $user = $kyc->user;
             $user->kyc_status = 'rejected';
             $user->save();
+            Mail::to($user->email)->send(new kycVerificationMail($user));
 
             if ($request->has('rejection_reason')) {
                 $kyc->rejection_reason = $request->rejection_reason;

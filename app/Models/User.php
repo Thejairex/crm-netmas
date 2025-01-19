@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Hash;
 
 class User extends Authenticatable
 {
-    use HasFactory;
+    use HasFactory, Notifiable;
 
     protected $fillable = [
         'username',
@@ -76,6 +76,11 @@ class User extends Authenticatable
          */
         return $this->hasMany(User::class, 'parent_id');
 
+    }
+
+    public function kyc()
+    {
+        return $this->hasOne(KYC::class);
     }
 
     public function rank(): BelongsTo

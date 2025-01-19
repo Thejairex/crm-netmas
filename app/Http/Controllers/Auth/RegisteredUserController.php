@@ -3,13 +3,14 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Mail\WelcomeUser;
 use App\Models\User;
+use App\Notifications\UserNotification;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rules;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Validator;
 
@@ -58,6 +59,7 @@ class RegisteredUserController extends Controller
 
          Auth::login($user);
 
+         Mail::to($user->email)->send(new WelcomeUser($user)); // Send welcome email
          return redirect()->route("dashboard");
      }
 }
